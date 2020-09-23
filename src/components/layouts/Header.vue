@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">Accueil</li>
-      <li class="nav-item">Photos</li>
-      <li class="nav-item">Contact</li>
+    <img src="https://trypyramid.com/img/pyramid-logo-white-horizontal.png" alt="test logo" class="nav-logo"/>
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Photos</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
     </ul>
   </nav>
 </template>
@@ -18,34 +19,47 @@ export default {
 
 @import url(https://fonts.googleapis.com/css?family=Karla);
 
-:root {
-  font-size: 16px;
-  font-family: 'Karla', sans-serif;
-  --bg-primary: blue;
-}
-
 .navbar {
   width: 100%;
-  height: 100vh;
-  position: fixed;
-  background: var(--bg-primary);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  background-color: var(--bg-primary);
+  font-size: 18px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  height: 50px;
 }
 
-.navbar-nav {
+.nav {
   list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 20px;
+  justify-self: end;
+  margin-right: 5rem;
+}
+
+.nav-item {
   height: 100%;
 }
 
-.navbar .nav-item {
-  width: 100%;
+.nav-link {
+  color: whitesmoke;
+  text-decoration: none;
 }
 
-.navbar .nav-item:last-child {
-  margin-top: auto;
+.nav-item .active, a:hover {
+  color: olive;
 }
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  justify-self: start;
+  margin-left: 20px;
+}
+
 </style>
