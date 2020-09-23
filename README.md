@@ -1,12 +1,15 @@
 # prog-web2-front
 
-Structure:
+##Structure:
 
-- Multipage avec plusieurs onglets: accueil, photos, contact
+Multipage avec plusieurs onglets: accueil, photos, contact
 
+### Détails pages
 
 Accueil: présentation des 3 créateurs & photo
+
 Photos: affichage de photos en grille
+
 Contact: page avec formulaire de contact + email + adresse
 
 
