@@ -3,9 +3,15 @@
     <nav class="navbar">
       <img src="../../assets/logo.png" alt="test logo" class="nav-logo"/>
       <ul class="nav">
-        <li class="nav-item active"><a class="nav-link" href="home">Accueil</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Photos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">Accueil</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/images" class="nav-link">Photos</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/contact" class="nav-link">Contact</router-link>
+        </li>
       </ul>
     </nav>
   </header>
@@ -56,7 +62,7 @@ export default {
   -webkit-transition: color 0.2s ease-out;
 }
 
-.nav-item.active a {
+.nav-link.router-link-exact-active {
   color: orange;
 }
 
@@ -68,7 +74,6 @@ export default {
   color: white;
   text-decoration: none;
 }
-
 
 .nav-logo {
   width: auto;
