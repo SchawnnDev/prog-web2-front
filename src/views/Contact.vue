@@ -2,7 +2,7 @@
   <section>
 
     <div class="title-container">
-      <h1 class="title-reponsive">Contact et informations</h1>
+      <h1 class="title-responsive">Contact et informations</h1>
     </div>
 
     <div class="panel contact-panel">
@@ -45,12 +45,10 @@ export default {
 </script>
 
 <style scoped>
+
 .panel.contact-panel {
   margin-left: 20%;
   margin-right: 20%;
 }
 
-.panel.contact-panel .title {
-  margin-bottom: 50px;
-}
 </style>

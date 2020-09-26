@@ -102,10 +102,14 @@ hr.separator {
   margin-top: 20px;
 }
 
+.title-container h1.title-responsive {
+  font-size: 50px;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  .title-container h1 > .title-responsive {
-    font-size: 30px;
+  .title-container h1.title-responsive {
+    font-size: 28px;
   }
 }
 

@@ -25,5 +25,6 @@ footer {
 
 footer p {
   color: black;
+  text-align: center;
 }
 </style>
