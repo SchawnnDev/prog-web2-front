@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header/>
-    <router-view/>
+    <main>
+      <router-view/>
+    </main>
     <Footer/>
   </div>
 </template>
@@ -21,7 +23,11 @@
   box-sizing: border-box;
 }
 
-body {
+#app {
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  margin:0;
 }
 
 .input-group input[type=text], input[type=email] {
@@ -60,7 +66,7 @@ body {
 .title-container {
   width: 100%;
   min-height: 200px;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
+  background: url("assets/img/background/1.jpg"); /*linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));*/
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,7 +90,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  padding: 20px;
 }
 
 .panel .input-form {

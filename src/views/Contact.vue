@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div>
 
     <div class="title-container">
       <h1 class="title-responsive">Contact et informations</h1>
@@ -35,7 +35,7 @@
         <input type="submit" class="submit-button button-sm">
       </form>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>

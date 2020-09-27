@@ -6,6 +6,21 @@
       <p> des étudiants de médecine de la faculté de Strasbourg</p>
     </section>
 
+    <div class="founders">
+      <div class="founder">
+        <img class="founder-img"/>
+        <span class="founder-name"></span>
+      </div>
+      <div class="founder">
+        <img class="founder-img"/>
+        <span class="founder-name"></span>
+      </div>
+      <div class="founder">
+        <img class="founder-img"/>
+        <span class="founder-name"></span>
+      </div>
+    </div>
+
   </div>
 </template>
 

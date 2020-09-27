@@ -18,9 +18,8 @@ footer {
   flex-direction: column;
   justify-content: center;
   background-size: cover;
-  bottom: 0;
-  position: absolute;
   width: 100%;
+  margin-top:auto;
 }
 
 footer p {
