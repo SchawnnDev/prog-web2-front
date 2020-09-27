@@ -1,8 +1,8 @@
 <template>
   <div>
 
-    <div class="title-container">
-      <h1 class="title-responsive">Contact et informations</h1>
+    <div class="title-container title-responsive">
+      <h1>Contact et informations</h1>
     </div>
 
     <div class="panel contact-panel">
@@ -49,6 +49,13 @@ export default {
 .panel.contact-panel {
   margin-left: 20%;
   margin-right: 20%;
+}
+
+@media only screen and (max-width: 768px) {
+  .panel.contact-panel {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 
 </style>

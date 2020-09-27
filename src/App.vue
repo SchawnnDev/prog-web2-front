@@ -24,10 +24,10 @@
 }
 
 #app {
-  display:flex;
-  flex-direction:column;
-  height:100vh;
-  margin:0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
 }
 
 .input-group input[type=text], textarea, input[type=email] {
@@ -88,6 +88,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  row-gap: 20px;
   align-items: center;
   padding: 20px;
 }
@@ -99,7 +100,7 @@
 hr.separator {
   border-top: 2px solid lightgray;
   border-bottom: 2px solid lightgray;
-  border-left:0;
+  border-left: 0;
   border-right: 0;
   width: 100%;
   height: 10px;
@@ -107,15 +108,38 @@ hr.separator {
   margin-top: 20px;
 }
 
-.title-container h1.title-responsive {
-  font-size: 50px;
+.title-container.title-responsive h1 {
+  font-size: 46px;
 }
 
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  .title-container h1.title-responsive {
-    font-size: 28px;
+.title-container.title-responsive p {
+  font-size: 26px;
+}
+
+@media only screen and (max-width: 790px) {
+  .title-container.title-responsive h1 {
+    font-size: 30px;
   }
+
+  .title-container.title-responsive p {
+    font-size: 18px;
+  }
+
+  .title-container {
+    min-height: 150px;
+  }
+
+}
+
+@media only screen and (max-width: 525px) {
+  .title-container.title-responsive h1 {
+    font-size: 18px;
+  }
+
+  .title-container.title-responsive p {
+    font-size: 12px;
+  }
+
 }
 
 </style>
