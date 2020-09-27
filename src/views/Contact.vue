@@ -19,17 +19,17 @@
       <form class="input-form">
         <div class="input-group">
           <label for="name">Prénom/Nom</label>
-          <input id="name" type="text">
+          <input id="name" type="text" required>
         </div>
 
         <div class="input-group">
           <label for="email">Email</label>
-          <input id="email" type="email">
+          <input id="email" type="email" required>
         </div>
 
         <div class="input-group">
           <label for="message">Message</label>
-          <input id="message" type="text">
+          <textarea id="message" cols="30" rows="5" required/>
         </div>
 
         <input type="submit" class="submit-button button-sm">

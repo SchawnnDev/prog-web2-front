@@ -64,6 +64,7 @@
         -webkit-transition: color 0.2s ease-out;
     }
 
+    /* Onglet actif vuejs */
     .nav-link.router-link-exact-active {
         color: orange;
     }

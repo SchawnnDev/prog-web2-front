@@ -30,20 +30,19 @@
   margin:0;
 }
 
-.input-group input[type=text], input[type=email] {
+.input-group input[type=text], textarea, input[type=email] {
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #eee;
 }
 
-.input-group input {
-  border: 2px solid #eee;
-  border-radius: 3px;
-}
-
-.input-group input, label {
+.input-group input, textarea, label {
   display: block;
   width: 100%;
+}
+
+.input-group textarea {
+  resize: vertical;
 }
 
 .submit-button {
