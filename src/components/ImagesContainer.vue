@@ -1,16 +1,19 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="error-container" v-if="!Array.isArray(this.images) || !this.images.length">
+
+    <div class="loader" v-if="pending">Loading...</div>
+
+    <div class="error-container" v-if="!pending && (!Array.isArray(this.images) || !this.images.length)">
       <div class="sad-smiley"></div>
       <h3>Il n'y a pas d'images disponibles.</h3>
     </div>
 
-    <div class="images-container" v-else>
+    <div class="images-container" v-else-if="!pending">
       <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
-    <button class="submit-button button-sm">Charger plus...</button>
+    <button class="submit-button button-sm" :disabled="pending">Charger plus...</button>
 
   </div>
 </template>
