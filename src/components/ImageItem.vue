@@ -21,7 +21,7 @@ export default {
 <style scoped>
 .image-item {
   flex: 0 0 25%;
-  border: 4px solid darkgray;
+  border: 2px solid darkgray;
   max-width: 100vh;
   overflow: hidden;
 }
