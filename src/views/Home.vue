@@ -1,9 +1,8 @@
 <template>
     <div>
-
         <div class="title-container title-responsive">
-            <h1>Bienvenue sur le site de l'association</h1>
-            <p>des étudiants de médecine de la faculté de Strasbourg</p>
+            <h1>{{this.$store.getters.getTranslation('home.title')}}</h1>
+            <p>{{this.$store.getters.getTranslation('home.sub-title')}}</p>
         </div>
 
         <div class="panel">

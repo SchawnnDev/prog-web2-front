@@ -39,7 +39,7 @@
                     this.images = response.data.data;
                 })
                 .catch(error => {
-                    alert(error);
+                    console.log(error);
                 })
                 .finally(() => {
                     this.pending = false;
@@ -54,7 +54,7 @@
                         this.images = this.images.concat(response.data.data);
                     })
                     .catch(error => {
-                        alert(error);
+                        console.log(error);
                     })
                     .finally(() => {
                         this.pending = false;

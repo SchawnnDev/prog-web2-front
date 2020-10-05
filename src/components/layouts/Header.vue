@@ -105,9 +105,11 @@
     .nav-logo {
         width: auto;
         justify-self: start;
-        margin-left: 20px;
-        margin-right: 30px;
-        padding: 10px;
+        margin-left: 10px;
+    }
+
+    .nav-logo img {
+      height: 50px;
     }
 
     .mobile-menu-toggle .bar {

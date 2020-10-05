@@ -1,0 +1,14 @@
+{
+  "en-EN": {
+    "home": {
+      "title": "Welcome to the website of the medical",
+      "sub-title": "students' association of the Faculty of Strasbourg"
+    }
+  },
+  "fr-FR": {
+    "home": {
+      "title": "Bienvenue sur le site de l'association",
+      "sub-title": "des étudiants de médecine de la faculté de Strasbourg"
+    }
+  }
+}

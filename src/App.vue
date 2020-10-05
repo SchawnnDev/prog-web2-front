@@ -214,8 +214,16 @@ hr.separator {
 <script>
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
+import {I18N_INIT} from "@/store/actions.type";
 
 export default {
-  components: {Footer, Header}
+  components: {Footer, Header},
+  mounted() {
+    Promise.all([
+      this.$store.dispatch(I18N_INIT),
+    ]).then(() => {
+      console.log("Loaded translations");
+    })
+  }
 }
 </script>
