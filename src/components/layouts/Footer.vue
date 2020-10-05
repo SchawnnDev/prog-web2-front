@@ -56,7 +56,6 @@ footer .select-lang {
 }
 
 footer .select-lang select {
-  padding: 5px;
 }
 
 </style>
