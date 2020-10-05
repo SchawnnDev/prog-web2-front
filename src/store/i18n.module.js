@@ -15,12 +15,27 @@ export const mutations = {
     [LANG_INIT](state, json) {
         state.content = new Function(`return ${JSON.stringify(json)}`); // pour éviter de parser deux fois.
         state.languages = Object.keys(json);
-        state.code = Object.keys(json)[0] || 'en'; // langue de base: anglais
+
+        let language = localStorage.language;
+
+        if(!language)
+            language = navigator.language;
+
+        state.code = Object.keys(json).includes(language) ? language : 'en-EN'; // langue de base: anglais
+
+        // on stocke cette info dans le local storage
+        localStorage.language = state.code;
     },
 
     // change current language
     [LANG_CHANGE](state, code = state.languages[0]) {
+
+        // La langue n'existe pas
+        if(!state.languages.includes(code))
+            return;
+
         state.code = code;
+        localStorage.language = code;
     }
 }
 
@@ -40,15 +55,16 @@ const getters = {
         return state.languages;
     },
 
-    /*
-    argument : key => on recupère la valeur pour la clé cherchée
-    exemple : getTranslation('title')
-    */
-    getTranslation: state => (key, variables) => {
+    getLanguageCode: state => {
+        console.log(state.code);
+      return state.code;
+    },
+
+    getTranslationByCode: state => (key, variables, code) => {
         if (!state.content)
             return key; // Fichier non trouvé ou erreur de chargement.
 
-        let lang = state.content()[state.code];
+        let lang = state.content()[code];
 
         /*
             On souhaite pouvoir faire des catégories
@@ -78,6 +94,14 @@ const getters = {
         }
 
         return lang || key;
+    },
+
+    /*
+    argument : key => on recupère la valeur pour la clé cherchée
+    exemple : getTranslation('title')
+    */
+    getTranslation: state => (key, variables) => {
+        return getters.getTranslationByCode(state)(key, variables, state.code);
     }
 }
 

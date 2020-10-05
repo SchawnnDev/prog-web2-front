@@ -2,10 +2,8 @@
   <footer>
     <p>2020 - AEMFS</p>
 
-    <select class="select-lang">
-      <option :value="lang" :key="lang" v-for="lang in this.getLanguages" @select="changeLanguage">
-        {{ lang }}
-      </option>
+    <select class="select-lang" @change="changeLanguage($event)">
+      <option v-bind:key="lang" v-for="lang in this.getLanguages" :value="lang" :selected="lang === getLanguageCode">{{ getTranslationByCode("name", null, lang) }}</option>
     </select>
 
   </footer>
@@ -18,19 +16,22 @@ import {LANG_CHANGE} from "@/store/mutations.type";
 export default {
   name: "Footer",
   computed: {
-    ...mapGetters(["getLanguages"])
+    ...mapGetters(["getLanguageCode", "getLanguages", "getTranslationByCode"])
   },
   methods: {
-    changeLanguage(code) {
-      this.$store.commit(LANG_CHANGE, code);
+    changeLanguage(event) {
+      let selectedLang = event.target.value;
+      if (!selectedLang) return;
+      this.$store.commit(LANG_CHANGE, selectedLang);
     }
   }
 }
 </script>
 
 <style scoped>
+
 footer {
-  min-height: 50px;
+  height: 50px;
   background-color: #eee;
   display: flex;
   flex-direction: column;
@@ -49,9 +50,13 @@ footer p {
 
 footer .select-lang {
   padding: 10px;
-  width: auto;
   position: absolute;
-  display: flex;
   right: 10px;
+  width: 100px;
 }
+
+footer .select-lang select {
+  padding: 5px;
+}
+
 </style>

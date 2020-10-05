@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title-container title-responsive">
-      <h1>Photos d'événements passés</h1>
+      <h1>{{getTranslation("views.images.title")}}</h1>
     </div>
 
     <ImagesContainer></ImagesContainer>
@@ -10,10 +10,14 @@
 
 <script>
 import ImagesContainer from "@/components/ImagesContainer";
+import {mapGetters} from "vuex";
 
 export default {
   name: "Images",
   components: {ImagesContainer},
+  computed: {
+    ...mapGetters(["getTranslation"])
+  }
 }
 </script>
 
