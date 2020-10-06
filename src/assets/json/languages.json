@@ -1,0 +1,122 @@
+{
+  "en-EN": {
+    "name": "English",
+    "header": {
+      "nav": {
+        "pages": {
+          "home": "Main page",
+          "images": "Photos",
+          "contact": "Contact"
+        }
+      }
+    },
+    "views": {
+      "home": {
+        "title": "Welcome to the website of the medical",
+        "sub-title": "students' association of the Faculty of Strasbourg"
+      },
+      "images": {
+        "title": "Photos of past events",
+        "buttons": {
+          "load": "Load more..."
+        },
+        "errors": {
+          "no-images": "There are no images available."
+        }
+      },
+      "contact": {
+        "title": "Contact and information",
+        "buttons": {
+          "send": "Send"
+        },
+        "errors": {
+        },
+        "form": {
+          "names" : "First name / Last name",
+          "email" : "Email",
+          "message" : "Message"
+        }
+      }
+    }
+  },
+  "fr-FR": {
+    "name": "Français",
+    "header": {
+      "nav": {
+        "pages": {
+          "home": "Accueil",
+          "images": "Photos",
+          "contact": "Contact"
+        }
+      }
+    },
+    "views": {
+      "home": {
+        "title": "Bienvenue sur le site de l'association",
+        "sub-title": "des étudiants de médecine de la faculté de Strasbourg"
+      },
+      "images": {
+        "title": "Photos d'événements passés",
+        "buttons": {
+          "load": "Charger plus..."
+        },
+        "errors": {
+          "no-images": "Il n'y a pas d'images disponibles."
+        }
+      },
+      "contact": {
+        "title": "Contact et informations",
+        "buttons": {
+          "send": "Envoyer"
+        },
+        "errors": {
+        },
+        "form": {
+          "names" : "Prénom / Nom",
+          "email" : "Email",
+          "message" : "Message"
+        }
+      }
+    }
+  },
+  "de-DE": {
+    "name": "Deutsch",
+    "header": {
+      "nav": {
+        "pages": {
+          "home": "Hauptseite",
+          "images": "Fotos",
+          "contact": "Kontakt"
+        }
+      }
+    },
+    "views": {
+      "home": {
+        "title": "Willkommen auf der Website des Vereins",
+        "sub-title": "der Medizinstudenten der Fakultät Straßburg"
+      },
+      "images": {
+        "title": "Fotos von vergangenen Veranstaltungen",
+        "buttons": {
+          "load": "Mehr laden..."
+        },
+        "errors": {
+          "no-images": "Es sind keine Bilder verfügbar."
+        }
+      },
+      "contact": {
+        "title": "Kontakt und Informationen",
+        "buttons": {
+          "send": "Senden"
+        },
+        "errors": {
+        },
+        "form": {
+          "names" : "Vorname / Nachname",
+          "email" : "E-Mail",
+          "message" : "Nachricht"
+        }
+      }
+    }
+  }
+}
