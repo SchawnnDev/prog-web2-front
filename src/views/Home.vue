@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="title-container title-responsive">
-      <h1>{{ this.$store.getters.getTranslation('views.home.title') }}</h1>
-      <p>{{ this.$store.getters.getTranslation('views.home.sub-title') }}</p>
+      <h1>{{ getTranslation('views.home.title') }}</h1>
+      <p>{{ getTranslation('views.home.sub-title') }}</p>
     </div>
 
     <div class="panel home-panel">
@@ -29,30 +29,45 @@
       </div>
 
       <div class="founders">
-        <div class="founder">
-          <img class="founder-img" src="../assets/img/team/avatar_men.png"/>
-          <span class="founder-name">Paul</span>
-        </div>
-        <div class="founder">
-          <img class="founder-img" src="../assets/img/team/avatar_women.png"/>
-          <span class="founder-name">Louis</span>
-        </div>
-        <div class="founder">
-          <img class="founder-img" src="../assets/img/team/avatar_men.png"/>
-          <span class="founder-name">Matthieu</span>
-        </div>
-      </div>
 
+        <div class="founder">
+          <img class="founder-img" src="../assets/img/team/paul.jpg"/>
+          <div class="founder-details">
+            <h2>Paul</h2>
+            <p>Président</p>
+          </div>
+        </div>
+
+        <div class="founder">
+          <img class="founder-img" src="../assets/img/team/louis.jpg"/>
+          <div class="founder-details">
+            <h2>Louis</h2>
+            <p>Secrétaire</p>
+          </div>
+        </div>
+
+        <div class="founder">
+          <img class="founder-img" src="../assets/img/team/matthieu.jpg"/>
+          <div class="founder-details">
+            <h2>Matthieu</h2>
+            <p>Trésorier</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import {mapGetters} from "vuex";
 
 export default {
   name: 'Home',
-  components: {}
+  components: {},
+  computed: {
+    ...mapGetters(["getTranslation"])
+  }
 }
 </script>
 
@@ -60,37 +75,39 @@ export default {
 
 .founders {
   width: 80%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  column-gap: 10px;
-  justify-content: center;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-column-gap: 10px;
 }
 
 .founders .founder {
   border: 3px solid dimgray;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 33%;
   padding: 5px;
   background-color: #eeeeee;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .founders .founder .founder-img {
-  width: 100%;
-  max-width: 256px;
-  overflow: hidden;
-  margin: 0 auto;
+  max-width: 80%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+  border: 5px white solid;
 }
 
-.founders .founder .founder-name {
+.founders .founder .founder-details {
   text-align: center;
+}
+
+.founders .founder .founder-details h2 {
   font-size: 36px;
+}
+
+.founders .founder .founder-details p {
 }
 
 .panel.home-panel {
@@ -99,8 +116,13 @@ export default {
 }
 
 @media only screen and (max-width: 768px) {
-  .founders .founder .founder-name {
-    font-size: 18px;
+
+  .founders {
+    width: 100%;
+  }
+
+  .founders .founder .founder-details h2 {
+    font-size: 16px;
   }
 
   .panel.home-panel {

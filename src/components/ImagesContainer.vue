@@ -9,10 +9,10 @@
     </div>
 
     <div class="images-container" v-else-if="!pending">
-      <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
+        <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
-    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadMore">{{getTranslation("views.images.buttons.load")}}</button>
+    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadMore" style="margin-top:10px">{{getTranslation("views.images.buttons.load")}}</button>
 
   </div>
 </template>
@@ -71,13 +71,28 @@ export default {
 <style scoped>
 .images-container {
   display: flex;
+  -webkit-display: box;
+  -moz-display: box;
+  -ms-display: flexbox;
+  -webkit-display: flex;
+  justify-content: center;
+
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+/*
+.images-container {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   column-gap: 10px;
   row-gap: 10px;
 }
-
+*/
 .error-container {
   display: flex;
   flex-direction: column;
