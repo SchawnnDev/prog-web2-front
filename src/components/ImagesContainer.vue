@@ -19,7 +19,6 @@
 
 <script>
 import ImageItem from "@/components/ImageItem";
-import axios from "axios";
 import {mapGetters} from "vuex";
 
 export default {
@@ -37,7 +36,7 @@ export default {
   mounted() {
     this.pending = true;
 
-    axios.get("https://progweb2.free.beeceptor.com/images")
+    this.$axios.get("api/images", {params:{page:1}})
         .then(response => {
           this.images = response.data.data;
         })
@@ -53,7 +52,7 @@ export default {
       this.pending = true;
       document.body.classList.add("progress");
 
-      axios.get("https://progweb2.free.beeceptor.com/images")
+      this.$axios.get("https://progweb2.free.beeceptor.com/images")
           .then(response => {
             this.images = this.images.concat(response.data.data);
           })

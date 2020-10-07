@@ -1,5 +1,5 @@
 {
-  "en-EN": {
+  "en": {
     "name": "English",
     "header": {
       "nav": {
@@ -40,7 +40,7 @@
       }
     }
   },
-  "fr-FR": {
+  "fr": {
     "name": "Français",
     "header": {
       "nav": {
@@ -81,7 +81,7 @@
       }
     }
   },
-  "de-DE": {
+  "de": {
     "name": "Deutsch",
     "header": {
       "nav": {

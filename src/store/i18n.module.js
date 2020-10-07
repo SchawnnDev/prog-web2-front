@@ -19,9 +19,9 @@ export const mutations = {
         let language = localStorage.language;
 
         if(!language)
-            language = navigator.language;
+            language = navigator.language || 'en';
 
-        state.code = Object.keys(json).includes(language) ? language : 'en-EN'; // langue de base: anglais
+        state.code = Object.keys(json).includes(language) ? language : 'en'; // langue de base: anglais
 
         // on stocke cette info dans le local storage
         localStorage.language = state.code;
@@ -56,7 +56,6 @@ const getters = {
     },
 
     getLanguageCode: state => {
-        console.log(state.code);
       return state.code;
     },
 
