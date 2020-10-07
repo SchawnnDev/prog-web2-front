@@ -30,6 +30,10 @@
   margin: 0;
 }
 
+.progress {
+  cursor: progress;
+}
+
 .input-group input[type=text], textarea, input[type=email] {
   padding: 10px;
   margin: 10px 0;

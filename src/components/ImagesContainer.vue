@@ -1,18 +1,18 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="loader" v-if="pending">Loading...</div>
-
     <div class="error-container" v-if="!pending && (!Array.isArray(this.images) || !this.images.length)">
       <div class="sad-smiley"></div>
       <h3>{{getTranslation("views.images.errors.no-images")}}</h3>
     </div>
 
-    <div class="images-container" v-else-if="!pending">
+    <div class="images-container">
         <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
-    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadMore" style="margin-top:10px">{{getTranslation("views.images.buttons.load")}}</button>
+    <div class="loader" v-if="pending">Loading...</div>
+
+    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadMore">{{getTranslation("views.images.buttons.load")}}</button>
 
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
   methods: {
     loadMore() {
       this.pending = true;
+      document.body.classList.add("progress");
 
       axios.get("https://progweb2.free.beeceptor.com/images")
           .then(response => {
@@ -61,6 +62,7 @@ export default {
           })
           .finally(() => {
             this.pending = false;
+            document.body.classList.remove("progress");
           });
     }
   }

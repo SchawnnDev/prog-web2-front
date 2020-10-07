@@ -1,8 +1,7 @@
 <template>
   <div class="cards">
     <div class="card-item">
-      <div class="card-image">
-        <img v-bind:src="this.image.url" />
+      <div class="card-image" v-bind:style="{'background-image' : 'url(' + this.image.url + ')'}">
       </div>
       <div class="card-info">
         <h2 class="card-title">{{ this.image.title }}</h2>

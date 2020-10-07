@@ -63,6 +63,7 @@ header {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  z-index: 1;
 }
 
 .navbar {
