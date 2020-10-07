@@ -1,13 +1,13 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="error-container" v-if="!pending && (!Array.isArray(this.images) || !this.images.length)">
+    <div class="error-container" v-if="!pending && getImagesCount == 0">
       <div class="sad-smiley"></div>
       <h3>{{ getTranslation("views.images.errors.no-images") }}</h3>
     </div>
 
     <div class="images-container">
-      <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
+      <ImageItem v-for="(image, index) in getImages" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
     <div class="loader" v-if="pending">Loading...</div>
@@ -22,19 +22,18 @@
 <script>
 import ImageItem from "@/components/ImageItem";
 import {mapGetters} from "vuex";
+import {IMAGES_LOAD} from "@/store/actions.type";
 
 export default {
   name: "ImagesContainer",
   components: {ImageItem},
   data: function () {
     return {
-      images: [],
-      pending: false,
-      page: 1
+      pending: false
     }
   },
   computed: {
-    ...mapGetters(["getTranslation"])
+    ...mapGetters(["getTranslation", "getImagesCount", "getImages"])
   },
   mounted() {
     this.loadImages()
@@ -42,49 +41,12 @@ export default {
   methods: {
     loadImages() {
       this.pending = true;
-
-      this.$axios.get("api/images", {params: {page: this.page}})
-          .then(response => {
-            let data = response.data.data;
-
-            /**
-             * S'il y'a encore des données dans la page, on compare et on récupère
-             */
-            for (let img of data) {
-
-              let found = false;
-
-              for (let value of this.images) {
-                if(value.id != img.id)
-                  continue;
-
-                found = true;
-                break;
-              }
-
-              if(found)
-                continue;
-
-              this.images.push(img);
-
-            }
-
-            /**
-             * Si l'on récupère 4 images, alors on peut changer de page.
-             */
-
-            if (data.length == 4)
-              this.page++;
-
-          })
-          .catch(error => {
-            console.log(error);
-          })
-          .finally(() => {
-            this.pending = false;
-          });
+      Promise.all([
+        this.$store.dispatch(IMAGES_LOAD),
+      ]).then(() => {
+        this.pending = false;
+      });
     }
-
   }
 }
 </script>
