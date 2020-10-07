@@ -3,16 +3,18 @@
 
     <div class="error-container" v-if="!pending && (!Array.isArray(this.images) || !this.images.length)">
       <div class="sad-smiley"></div>
-      <h3>{{getTranslation("views.images.errors.no-images")}}</h3>
+      <h3>{{ getTranslation("views.images.errors.no-images") }}</h3>
     </div>
 
     <div class="images-container">
-        <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
+      <ImageItem v-for="(image, index) in images" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
     <div class="loader" v-if="pending">Loading...</div>
 
-    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadMore">{{getTranslation("views.images.buttons.load")}}</button>
+    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadImages">
+      {{ getTranslation("views.images.buttons.load") }}
+    </button>
 
   </div>
 </template>
@@ -27,43 +29,62 @@ export default {
   data: function () {
     return {
       images: [],
-      pending: false
+      pending: false,
+      page: 1
     }
   },
   computed: {
     ...mapGetters(["getTranslation"])
   },
   mounted() {
-    this.pending = true;
-
-    this.$axios.get("api/images", {params:{page:1}})
-        .then(response => {
-          this.images = response.data.data;
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.pending = false;
-        });
+    this.loadImages()
   },
   methods: {
-    loadMore() {
+    loadImages() {
       this.pending = true;
-      document.body.classList.add("progress");
 
-      this.$axios.get("https://progweb2.free.beeceptor.com/images")
+      this.$axios.get("api/images", {params: {page: this.page}})
           .then(response => {
-            this.images = this.images.concat(response.data.data);
+            let data = response.data.data;
+
+            /**
+             * S'il y'a encore des données dans la page, on compare et on récupère
+             */
+            for (let img of data) {
+
+              let found = false;
+
+              for (let value of this.images) {
+                if(value.id != img.id)
+                  continue;
+
+                found = true;
+                break;
+              }
+
+              if(found)
+                continue;
+
+              this.images.push(img);
+
+            }
+
+            /**
+             * Si l'on récupère 4 images, alors on peut changer de page.
+             */
+
+            if (data.length == 4)
+              this.page++;
+
           })
           .catch(error => {
             console.log(error);
           })
           .finally(() => {
             this.pending = false;
-            document.body.classList.remove("progress");
           });
     }
+
   }
 }
 </script>
