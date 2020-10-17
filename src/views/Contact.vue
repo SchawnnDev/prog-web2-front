@@ -7,7 +7,11 @@
 
     <div class="panel contact-panel">
 
-      <pre v-html="getTranslation('views.contact.description', { 'email' : '<a target=\'_blank\' href=\'mailto:contact@aemfs.fr\'>contact@aemfs.fr</a>'})"></pre>
+
+      <div class="address">
+        <pre v-html="getTranslation('views.contact.description', { 'email' : '<a target=\'_blank\' href=\'mailto:contact@aemfs.fr\'>contact@aemfs.fr</a>'})"></pre>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2639.481663368214!2d7.75140271554455!3d48.58147567926133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796c8547da9e703%3A0x8fa567c3f73565dd!2s2%20Rue%20des%20%C3%89crivains%2C%2067000%20Strasbourg!5e0!3m2!1sfr!2sfr!4v1602833344352!5m2!1sfr!2sfr" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </div>
 
       <hr class="separator"/>
 
@@ -54,6 +58,16 @@ export default {
 pre {
   font-family: inherit;
   text-align: center;
+}
+
+.contact-panel .address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 20px;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 768px) {

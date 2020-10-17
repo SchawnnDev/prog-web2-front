@@ -4,7 +4,7 @@
       <h1>{{getTranslation("views.images.title")}}</h1>
     </div>
 
-    <ImagesContainer></ImagesContainer>
+    <ImagesContainer :per-page="2"></ImagesContainer>
   </div>
 </template>
 

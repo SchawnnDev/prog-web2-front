@@ -1,7 +1,7 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="error-container" v-if="!pending && getImagesCount == 0">
+    <div class="error-container" v-if="!this.isLoading && getImagesCount == 0">
       <div class="sad-smiley"></div>
       <h3>{{ getTranslation("views.images.errors.no-images") }}</h3>
     </div>
@@ -10,9 +10,9 @@
       <ImageItem v-for="(image, index) in getImages" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
-    <div class="loader" v-if="pending">Loading...</div>
+    <beat-loader :loading="this.isLoading" :color="'orange'" class="images-panel loader"></beat-loader>
 
-    <button class="submit-button button-sm" :disabled="pending" v-on:click="loadImages">
+    <button class="submit-button button-sm" :disabled="this.isLoading" v-on:click="loadImages">
       {{ getTranslation("views.images.buttons.load") }}
     </button>
 
@@ -20,32 +20,30 @@
 </template>
 
 <script>
-import ImageItem from "@/components/ImageItem";
+import ImageItem from "./ImageItem";
 import {mapGetters} from "vuex";
 import {IMAGES_LOAD} from "@/store/actions.type";
+import BeatLoader from "vue-spinner/src/BeatLoader"
 
 export default {
   name: "ImagesContainer",
-  components: {ImageItem},
-  data: function () {
-    return {
-      pending: false
+  components: {ImageItem, BeatLoader},
+  props: {
+    per_page: {
+      type: Number,
+      required: false,
+      default: 2
     }
   },
   computed: {
-    ...mapGetters(["getTranslation", "getImagesCount", "getImages"])
+    ...mapGetters(["getTranslation", "getImagesCount", "getImages", "isLoading"])
   },
   mounted() {
     this.loadImages()
   },
   methods: {
     loadImages() {
-      this.pending = true;
-      Promise.all([
-        this.$store.dispatch(IMAGES_LOAD),
-      ]).then(() => {
-        this.pending = false;
-      });
+        this.$store.dispatch(IMAGES_LOAD, {per_page: this.per_page});
     }
   }
 }
@@ -66,17 +64,10 @@ export default {
   padding: 0;
   margin: 0;
 }
-
-/*
-.images-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  column-gap: 10px;
-  row-gap: 10px;
+.panel.images-panel {
+  row-gap: 5px;
 }
-*/
+
 .error-container {
   display: flex;
   flex-direction: column;

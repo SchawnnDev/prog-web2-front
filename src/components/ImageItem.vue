@@ -22,13 +22,6 @@ export default {
 </script>
 
 <style scoped>
-.image-item {
-  flex: 0 0 25%;
-  border: 2px solid darkgray;
-  max-width: 100vh;
-  overflow: hidden;
-}
-
 .image-item img {
   width: 100%;
   height: auto;
@@ -41,7 +34,6 @@ export default {
 .cards {
   display: flex;
   padding: 1rem;
-  margin-bottom: 2rem;
   flex: 1 0 calc(25% - 10px);
 }
 
@@ -97,13 +89,13 @@ export default {
 }
 
 .cards .card-image {
-  height: 200px;
+  height: 250px;
   overflow: hidden;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 6px 6px 0px 0px;
-  opacity: 0.91;
+  opacity: 0.90;
 }
 
 </style>

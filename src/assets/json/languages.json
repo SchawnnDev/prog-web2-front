@@ -26,7 +26,7 @@
       },
       "contact": {
         "title": "Contact and information",
-        "description" : "Our association can be found at the following address:\n\n5 rue des palmiers - 67000 Strasbourg\n\n\nOur email address is: %email%",
+        "description" : "Our association can be found at the following address:\n\n2 Rue des Écrivains - F-67000 Strasbourg\n\n\nOur email address is: %email%",
         "buttons": {
           "send": "Send"
         },
@@ -67,7 +67,7 @@
       },
       "contact": {
         "title": "Contact et informations",
-        "description" : "Notre association se trouve à l'adresse :\n\n5 rue des palmiers - 67000 Strasbourg\n\n\nNotre email est: %email%",
+        "description" : "Notre association se trouve à l'adresse :\n\n2 Rue des Écrivains - 67000 Strasbourg\n\n\nNotre email est: %email%",
         "buttons": {
           "send": "Envoyer"
         },
@@ -108,7 +108,7 @@
       },
       "contact": {
         "title": "Kontakt und Informationen",
-        "description" : "Unser Verein ist unter der folgenden Adresse zu finden:\n\n5 rue des palmiers - F-67000 Straßburg\n\n\nUnsere E-Mail ist: %email%",
+        "description" : "Unser Verein ist unter der folgenden Adresse zu finden:\n\n2 Rue des Écrivains - F-67000 Straßburg\n\n\nUnsere E-Mail ist: %email%",
         "buttons": {
           "send": "Senden"
         },

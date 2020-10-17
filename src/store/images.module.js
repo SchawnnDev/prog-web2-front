@@ -1,21 +1,22 @@
-import Vue from 'vue'
-import {
-    IMAGES_ADD
-} from '@/store/mutations.type'
-import {IMAGES_LOAD} from '@/store/actions.type';
+import {ImagesService} from "../common/api.service";
+import {IMAGES_LOAD_END, IMAGES_LOAD_START} from "./mutations.type";
+import {IMAGES_LOAD} from "./actions.type";
 
 const state = {
-    page: 1,
-    images: []
+    images: [],
+    loading: true,
+    page: 1
 }
 
 export const mutations = {
-    // init language (from file)
-    [IMAGES_ADD](state, images) {
+    [IMAGES_LOAD_START](state) {
+        state.loading = true;
+    },
+    [IMAGES_LOAD_END](state, data) {
         /**
          * S'il y'a encore des données dans la page, on compare et on récupère
          */
-        for (let img of images) {
+        for (let img of data.data) {
 
             let found = false;
 
@@ -35,23 +36,28 @@ export const mutations = {
         }
 
         /**
-         * Si l'on récupère 4 images, alors on peut changer de page.
+         * Si l'on récupère N images, alors on peut changer de page.
          */
 
-        if (images.length == 4)
+        if (data.data.length == data.per_page)
             state.page++;
-    },
+
+        state.loading = false;
+    }
 
 }
 
 export const actions = {
-    // Non async : la traduction doit être affichée directement
-    [IMAGES_LOAD](context) {
-        // on charge le fichier des traductions
-
-        Vue.prototype.$axios.get("api/images", {params: {page: context.state.page}})
-            .then(response => {
-                context.commit(IMAGES_ADD, response.data.data);
+    [IMAGES_LOAD](context, params) {
+        context.commit(IMAGES_LOAD_START);
+        params['page'] = context.state.page;
+        // on charge les images du back
+        return ImagesService.get(params)
+            .then(({data}) => {
+                setTimeout(() => context.commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),1000)
+            })
+            .catch(error => {
+                throw new Error(error);
             });
     }
 }
@@ -59,13 +65,15 @@ export const actions = {
 const getters = {
 
     getImagesCount: state => {
-        if (!state.images)
-            return null;
-        return state.images.length;
+        return !state.images ? 0 : state.images.length;
     },
 
     getImages: state => {
         return state.images;
+    },
+
+    isLoading: state => {
+        return state.loading;
     }
 
 }
