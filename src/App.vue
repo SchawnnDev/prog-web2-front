@@ -102,6 +102,8 @@
   row-gap: 20px;
   align-items: center;
   padding: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .panel .input-form {
@@ -138,6 +140,11 @@ hr.separator {
 
   .title-container {
     min-height: 150px;
+  }
+
+  .panel {
+    margin-left: 5%;
+    margin-right: 5%;
   }
 
 }

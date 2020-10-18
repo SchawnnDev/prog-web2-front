@@ -34,7 +34,7 @@
           <img class="founder-img" src="../assets/img/team/paul.jpg"/>
           <div class="founder-details">
             <h2>Paul</h2>
-            <p>Président</p>
+            <p>{{ getTranslation('views.home.founders.president') }}</p>
           </div>
         </div>
 
@@ -42,7 +42,7 @@
           <img class="founder-img" src="../assets/img/team/louis.jpg"/>
           <div class="founder-details">
             <h2>Louis</h2>
-            <p>Secrétaire</p>
+            <p>{{ getTranslation('views.home.founders.secretary') }}</p>
           </div>
         </div>
 
@@ -50,7 +50,7 @@
           <img class="founder-img" src="../assets/img/team/matthieu.jpg"/>
           <div class="founder-details">
             <h2>Matthieu</h2>
-            <p>Trésorier</p>
+            <p>{{ getTranslation('views.home.founders.treasurer') }}</p>
           </div>
         </div>
 
@@ -78,6 +78,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-column-gap: 10px;
+  margin-top: 50px;
 }
 
 .founders .founder {
@@ -107,14 +108,6 @@ export default {
   font-size: 36px;
 }
 
-.founders .founder .founder-details p {
-}
-
-.panel.home-panel {
-  margin-left: 20%;
-  margin-right: 20%;
-}
-
 @media only screen and (max-width: 768px) {
 
   .founders {
@@ -124,11 +117,11 @@ export default {
   .founders .founder .founder-details h2 {
     font-size: 16px;
   }
-
-  .panel.home-panel {
-    margin-left: 5%;
-    margin-right: 5%;
+  .founders {
+    margin-top: 0;
   }
+
+
 }
 
 </style>

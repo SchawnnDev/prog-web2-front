@@ -25,7 +25,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {ADMIN_ADD_IMAGE_TO_LIST} from "../../store/mutations.type";
+//import {ADMIN_ADD_IMAGE_TO_LIST} from "../../store/mutations.type";
 
 export default {
   name: "Manage",
@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     Promise.all([
-      this.$store.dispatch(ADMIN_ADD_IMAGE_TO_LIST)
+      //this.$store.dispatch(ADMIN_ADD_IMAGE_TO_LIST)
     ]).then(() => {
       this.pending = false;
     });

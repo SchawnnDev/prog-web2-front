@@ -8,8 +8,6 @@ Vue.config.productionTip = false
 
 // components
 
-//Vue.component('rotate-loader', require('vue-spinner/src/RotateLoader.vue'));
-
 // instance
 new Vue({
     router,

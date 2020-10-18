@@ -12,7 +12,7 @@
 
     <beat-loader :loading="this.isLoading" :color="'orange'" class="images-panel loader"></beat-loader>
 
-    <button class="submit-button button-sm" :disabled="this.isLoading" v-on:click="loadImages">
+    <button class="submit-button button-sm" :disabled="this.isLoading" v-on:click="loadImages(false)">
       {{ getTranslation("views.images.buttons.load") }}
     </button>
 
@@ -39,11 +39,15 @@ export default {
     ...mapGetters(["getTranslation", "getImagesCount", "getImages", "isLoading"])
   },
   mounted() {
-    this.loadImages()
+    this.loadImages(true)
   },
   methods: {
-    loadImages() {
-        this.$store.dispatch(IMAGES_LOAD, {per_page: this.per_page});
+    loadImages(init = false) {
+
+      if (init && this.getImagesCount != 0)
+        return;
+
+      this.$store.dispatch(IMAGES_LOAD, {per_page: this.per_page});
     }
   }
 }
@@ -64,6 +68,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 .panel.images-panel {
   row-gap: 5px;
 }

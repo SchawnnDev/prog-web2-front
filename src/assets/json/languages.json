@@ -13,7 +13,12 @@
     "views": {
       "home": {
         "title": "Welcome to the website of the medical",
-        "sub-title": "students' association of the Faculty of Strasbourg"
+        "sub-title": "students' association of the Faculty of Strasbourg",
+        "founders": {
+          "president" : "President",
+          "secretary" : "Secretary",
+          "treasurer" : "Treasurer"
+        }
       },
       "images": {
         "title": "Photos of past events",
@@ -54,7 +59,12 @@
     "views": {
       "home": {
         "title": "Bienvenue sur le site de l'association",
-        "sub-title": "des étudiants de médecine de la faculté de Strasbourg"
+        "sub-title": "des étudiants de médecine de la faculté de Strasbourg",
+        "founders": {
+          "president" : "Président",
+          "secretary" : "Secrétaire",
+          "treasurer" : "Trésorier"
+        }
       },
       "images": {
         "title": "Photos d'événements passés",
@@ -95,7 +105,12 @@
     "views": {
       "home": {
         "title": "Willkommen auf der Website des Vereins",
-        "sub-title": "der Medizinstudenten der Fakultät Straßburg"
+        "sub-title": "der Medizinstudenten der Fakultät Straßburg",
+        "founders": {
+          "president" : "Verbandsvorsitzender",
+          "secretary" : "Sekretär",
+          "treasurer" : "Schatzmeister"
+        }
       },
       "images": {
         "title": "Fotos von vergangenen Veranstaltungen",

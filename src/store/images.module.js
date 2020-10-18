@@ -5,7 +5,7 @@ import {IMAGES_LOAD} from "./actions.type";
 const state = {
     images: [],
     loading: true,
-    page: 1
+    page: 1,
 }
 
 export const mutations = {
@@ -50,11 +50,13 @@ export const mutations = {
 export const actions = {
     [IMAGES_LOAD](context, params) {
         context.commit(IMAGES_LOAD_START);
-        params['page'] = context.state.page;
+        // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées
+        // on charge alors toutes les données.
+        params['per_page'] = params.per_page * context.state.page;
         // on charge les images du back
         return ImagesService.get(params)
             .then(({data}) => {
-                setTimeout(() => context.commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),1000)
+                setTimeout(() => context.commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
             })
             .catch(error => {
                 throw new Error(error);
