@@ -61,16 +61,27 @@
   background-color: orange;
   color: #fff;
   cursor: pointer;
+  text-decoration-line: none;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: default;
+}
+
+.submit-button:hover {
+  background: orangered;
+  transition: background-color 0.2s ease-out;
+  -webkit-transition: background-color 0.2s ease-out;
 }
 
 .submit-button.button-sm {
   width: 20vh;
 }
 
-.submit-button.button-sm:disabled {
-  background-color: #cccccc;
-  color: #666666;
-  cursor: default;
+.submit-button.button-delete {
+  background-color: indianred;
 }
 
 .title-container {

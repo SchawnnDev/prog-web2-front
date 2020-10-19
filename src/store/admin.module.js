@@ -25,9 +25,9 @@ export const mutations = {
 }
 
 export const actions = {
-    async [ADMIN_FETCH_IMAGES](context) {
-        const data = await ImagesService.get({page: context.state.page, per_page: context.state.per_page});
-        context.commit(ADMIN_SET_IMAGES, data.data.data);
+    async [ADMIN_FETCH_IMAGES](context, params) {
+        const data = await ImagesService.get(params).data;
+        context.commit(ADMIN_SET_IMAGES, data.data);
         return data;
     },
     [ADMIN_CREATE_IMAGE](context, image) {
