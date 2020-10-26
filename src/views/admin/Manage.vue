@@ -5,6 +5,9 @@
     </div>
 
     <div class="panel">
+
+      <beat-loader :loading="this.isLoading" :color="'orange'"></beat-loader>
+
       <table class="images-list">
         <thead>
         <tr>

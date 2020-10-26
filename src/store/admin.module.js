@@ -12,7 +12,7 @@ const state = {
     }
 }
 
-export const mutations = {
+const mutations = {
     // init language (from file)
     [ADMIN_SET_IMAGES_LIST](state, images) {
         state.images = images;
@@ -24,7 +24,7 @@ export const mutations = {
 
 }
 
-export const actions = {
+const actions = {
     async [ADMIN_FETCH_IMAGES](context, params) {
         const data = await ImagesService.get(params).data;
         context.commit(ADMIN_SET_IMAGES, data.data);

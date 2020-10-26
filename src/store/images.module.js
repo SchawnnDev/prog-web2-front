@@ -8,7 +8,7 @@ const state = {
     page: 1,
 }
 
-export const mutations = {
+const mutations = {
     [IMAGES_LOAD_START](state) {
         state.loading = true;
     },
@@ -47,7 +47,7 @@ export const mutations = {
 
 }
 
-export const actions = {
+const actions = {
     [IMAGES_LOAD](context, params) {
         context.commit(IMAGES_LOAD_START);
         // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées

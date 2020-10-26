@@ -49,3 +49,9 @@ export const ImagesService = {
         return ApiService.delete(`images/${id}`);
     }
 };
+
+export const ContactService = {
+    send(params) {
+        return ApiService.post("contact", params);
+    }
+}
