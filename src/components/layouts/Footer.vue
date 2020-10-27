@@ -2,9 +2,9 @@
   <footer>
     <p>2020 - AEMFS</p>
 
-    <select id="lang-selector" class="select-lang" @change="changeLanguage($event)">
-      <option v-bind:key="lang" v-for="lang in this.getLanguages" :value="lang" :selected="lang === getLanguageCode">
-        {{ getTranslationByCode("name", null, lang) }}
+    <select id="lang-selector" class="select-lang" @change="this.changeLanguage($event)">
+      <option v-bind:key="lang" v-for="lang in this.getLanguages" :value="lang" :selected="lang === this.getLanguageCode">
+        {{ this.getTranslationByCode("name", null, lang) }}
       </option>
     </select>
   </footer>

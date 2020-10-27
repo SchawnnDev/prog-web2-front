@@ -1,33 +1,35 @@
 <template>
 
-  <form class="input-form" @submit="sendEmail">
+  <div class="input-form">
 
-    <div class="alert" v-show="this.getErrors" v-bind:class="{danger : !this.success}">
-
+    <div class="alert" v-if="Object.keys(this.getErrors).length !== 0" v-bind:class="{danger : !this.success}">
       <p v-if="success">{{ getTranslation("views.contact.messages.success") }}</p>
-      <ul v-else v-bind:key="error.id" v-for="error in getErrors">
-        <li>{{ error }}</li>
-      </ul>
-
+      <p v-else>
+        {{ getErrors.message[0] }}
+      </p>
     </div>
 
-    <div class="input-group">
-      <label for="name">{{ getTranslation("views.contact.form.names") }}</label>
-      <input v-model="name" id="name" required type="text">
-    </div>
+    <form @submit="sendEmail">
 
-    <div class="input-group">
-      <label for="email">{{ getTranslation("views.contact.form.email") }}</label>
-      <input v-model="email" id="email" required type="email">
-    </div>
+      <div class="input-group">
+        <label for="name">{{ getTranslation("views.contact.form.names") }}</label>
+        <input v-model="name" id="name" required type="text">
+      </div>
 
-    <div class="input-group">
-      <label for="message">{{ getTranslation("views.contact.form.message") }}</label>
-      <textarea v-model="message" cols="30" id="message" required rows="5"/>
-    </div>
+      <div class="input-group">
+        <label for="email">{{ getTranslation("views.contact.form.email") }}</label>
+        <input v-model="email" id="email" required type="email">
+      </div>
 
-    <input type="submit" class="submit-button button-sm" :value="getTranslation('views.contact.buttons.send')">
-  </form>
+      <div class="input-group">
+        <label for="message">{{ getTranslation("views.contact.form.message") }}</label>
+        <textarea v-model="message" cols="30" id="message" required rows="5"/>
+      </div>
+
+      <input :disabled="this.loading" type="submit" class="submit-button button-sm" :value="getTranslation('views.contact.buttons.send')">
+    </form>
+
+  </div>
 
 </template>
 
@@ -44,7 +46,7 @@ import {
 export default {
   name: "ContactForm",
   computed: {
-    ...mapGetters(["getTranslation", "success", "getErrors"]),
+    ...mapGetters(["getTranslation", "success", "getErrors", "contact/isLoading"]),
     name: {
       get() {
         return this.$store.state.name;
@@ -72,13 +74,13 @@ export default {
   },
 
   mounted() {
-    this.$store.commit(CONTACT_MAIL_INIT, {name: "s", email: "s", message: "s"});
+    this.$store.commit(CONTACT_MAIL_INIT, {name: "", email: "", message: ""});
   },
 
   methods: {
-    sendEmail(event) {
+    sendEmail(e) {
+      e.preventDefault();
       this.$store.dispatch(CONTACT_MAIL_SEND);
-      event.preventDefault();
     }
   }
 
@@ -86,5 +88,24 @@ export default {
 </script>
 
 <style scoped>
+
+.input-form .alert {
+  padding: 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #155724;
+  background-color: #d4edda;
+}
+
+.input-form .alert li {
+  text-decoration: none;
+}
+
+.input-form .alert.danger {
+  border: 1px #f5c6cb solid;
+  color: #721c24;
+  background-color: #f8d7da;
+}
 
 </style>

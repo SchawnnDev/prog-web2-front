@@ -14,3 +14,5 @@ export const CONTACT_MAIL_INIT = "contactMailInit";
 export const CONTACT_MAIL_SET_NAME = "contactMailSetName";
 export const CONTACT_MAIL_SET_EMAIL = "contactMailSetEmail";
 export const CONTACT_MAIL_SET_MESSAGE = "contactMailSetMessage";
+export const CONTACT_MAIL_SEND_START = "contactMailSendStart";
+export const CONTACT_MAIL_SEND_END = "contactMailSendEnd";

@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-bind:key="img.id" v-for="img in getImages">
+        <tr v-bind:key="img.id" v-for="img in this.getImages">
           <td>{{ img.id }}</td>
           <td>{{ img.title }}</td>
           <td><img style="height: 128px" v-bind:src="img.url"/></td>
@@ -41,7 +41,7 @@ import {IMAGES_LOAD} from "@/store/actions.type";
 export default {
   name: "Manage",
   computed: {
-    ...mapGetters(["getTranslation", "getImages"]),
+    ...mapGetters(["getTranslation", "getImages", "isLoading"]),
   },
   mounted() {
     this.$store.dispatch(IMAGES_LOAD, {per_page: 15})
