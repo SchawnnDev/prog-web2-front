@@ -9,10 +9,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     modules: {
-        i18n : i18n,
-        images : images,
-        admin : admin,
-        contact : contact
+        i18n,
+        images,
+        admin,
+        contact
     }
 })
 
