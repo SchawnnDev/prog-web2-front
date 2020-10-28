@@ -1,40 +1,23 @@
 import {ContactService} from "../common/api.service";
 import {
     CONTACT_SET_DISPLAY_STATUS,
-    CONTACT_MAIL_INIT,
     CONTACT_MAIL_SET_NAME,
     CONTACT_MAIL_SET_EMAIL, CONTACT_MAIL_SET_MESSAGE, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
 } from "./mutations.type";
 import {CONTACT_MAIL_SEND} from "./actions.type";
 
 const state = {
-    name: {
-        default: "",
-        type: String
-    },
-    email: {
-        default: "",
-        type: String
-    },
-    message: {
-        default: "",
-        type: String
-    },
+    name: String,
+    email: String,
+    message: String,
     //
     sent: false,
     errors: {},
     success: false,
-    loading: false
+    sending: false
 }
 
 const mutations = {
-
-    [CONTACT_MAIL_INIT](state, mail) {
-        state.email = mail;
-        state.sent = false;
-        state.errors = {};
-        state.success = false;
-    },
 
     [CONTACT_SET_DISPLAY_STATUS](state, data) {
         state.sent = true;
@@ -55,11 +38,11 @@ const mutations = {
     },
 
     [CONTACT_MAIL_SEND_START](state) {
-        state.loading = true;
+        state.sending = true;
     },
 
     [CONTACT_MAIL_SEND_END](state) {
-        state.loading = false;
+        state.sending = false;
     },
 
 }
@@ -72,12 +55,14 @@ const actions = {
             name: context.state.name,
             email: context.state.email,
             message: context.state.message
-        }).then(() => {
+        }).then(response => {
+
+            if (response.status != 200)
+                return;
+
             context.commit(CONTACT_SET_DISPLAY_STATUS, {success: true, errors: {}});
-        }).catch(error => {
-            if (error.response.status == 422) {
-                context.commit(CONTACT_SET_DISPLAY_STATUS, {success: false, errors: error.response.data.errors});
-            }
+        }).catch((error) => {
+            context.commit(CONTACT_SET_DISPLAY_STATUS, {success: false, errors: error.response.data});
         }).finally(() => {
             context.commit(CONTACT_MAIL_SEND_END);
         });
@@ -93,8 +78,12 @@ const getters = {
         return state.success;
     },
 
-    isLoading: state => {
-        return state.loading
+    isSending: state => {
+        return state.sending;
+    },
+
+    isSent: state => {
+        return state.sent;
     }
 }
 

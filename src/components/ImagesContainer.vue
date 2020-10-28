@@ -10,7 +10,7 @@
       <ImageItem v-for="(image, index) in this.getImages" :image="image" :key="image.title + index"></ImageItem>
     </div>
 
-    <beat-loader :loading="this.isLoading" :color="'orange'" class="images-panel loader"></beat-loader>
+    <beat-loader :loading="this.isLoading" :color="'orange'"></beat-loader>
 
     <button class="submit-button button-sm" :disabled="this.isLoading" v-on:click="loadImages(false)">
       {{ this.getTranslation("views.images.buttons.load") }}
@@ -36,7 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["i18n/getTranslation", "images/getImagesCount", "images/getImages", "images/isLoading"])
+    ...mapGetters(["getTranslation", "getImagesCount", "getImages", "isLoading"])
   },
   mounted() {
     this.loadImages(true)
