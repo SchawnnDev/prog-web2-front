@@ -18,7 +18,7 @@
       </p>
     </div>
 
-    <form @submit.prevent="">
+    <form @submit.prevent="sendEmail">
 
       <div class="input-group">
         <label for="name">{{ getTranslation("views.contact.form.names") }}</label>
@@ -36,7 +36,7 @@
       </div>
 
       <input :disabled="this.isSending" type="submit" class="submit-button button-sm"
-             :value="getTranslation('views.contact.buttons.send')" @click="sendEmail">
+             :value="getTranslation('views.contact.buttons.send')">
     </form>
 
   </div>
