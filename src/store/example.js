@@ -50,9 +50,9 @@ const mutations = {
   },
 }
 
-export {
+export default {
   state,
-  mutations,
-  actions,
   getters,
+  actions,
+  mutations,
 }
