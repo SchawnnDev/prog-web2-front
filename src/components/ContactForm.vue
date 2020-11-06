@@ -2,7 +2,7 @@
 
   <div class="input-form">
 
-    <beat-loader :loading="this.isSending" :color="'orange'" class="loader"></beat-loader>
+    <beat-loader :loading="this.isSending" :color="'orange'" class="loader"/>
 
     <div class="alert" v-if="this.isSent && !this.isSending" v-bind:class="{danger : !this.success}">
       <p v-if="this.success">

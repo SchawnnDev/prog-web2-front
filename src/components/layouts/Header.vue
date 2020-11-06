@@ -172,8 +172,6 @@ header {
     border: 2px #eee solid;
     padding: 20px;
 
-    -webkit-transition: -webkit-transform 0.3s ease-out;
-    -o-transition: transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
   }
 
