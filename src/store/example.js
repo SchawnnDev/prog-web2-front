@@ -8,7 +8,10 @@ const state = {
 }
 
 const getters = {
+  mailErrors: state => state.mailSending,
   mailSending: state => state.mailSending,
+  mailSent: state => state.mailSending,
+  mailSuccess: state => state.mailSending,
 }
 
 const actions = {
