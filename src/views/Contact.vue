@@ -23,7 +23,7 @@
 
       <hr class="separator"/>
 
-      <ContactForm></ContactForm>
+      <contact-form/>
 
     </div>
   </div>

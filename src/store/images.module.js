@@ -21,9 +21,7 @@ const mutations = {
             let found = false;
 
             for (let value of state.images) {
-                if (value.id != img.id)
-                    continue;
-
+                if (value.id !== img.id) continue;
                 found = true;
                 break;
             }
