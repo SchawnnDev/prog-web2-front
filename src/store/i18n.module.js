@@ -10,7 +10,7 @@ const state = {
     content: '' // content of json file
 }
 
-export const mutations = {
+const mutations = {
     // init language (from file)
     [LANG_INIT](state, json) {
         state.content = new Function(`return ${JSON.stringify(json)}`); // pour éviter de parser deux fois.
@@ -39,7 +39,7 @@ export const mutations = {
     }
 }
 
-export const actions = {
+const actions = {
     // Non async : la traduction doit être affichée directement
     [I18N_INIT](context) {
         // on charge le fichier des traductions

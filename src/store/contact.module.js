@@ -1,20 +1,15 @@
-import {ContactService} from "../common/api.service";
 import {
     CONTACT_SET_DISPLAY_STATUS,
     CONTACT_MAIL_SET_NAME,
     CONTACT_MAIL_SET_EMAIL, CONTACT_MAIL_SET_MESSAGE, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
 } from "./mutations.type";
-import {CONTACT_MAIL_SEND} from "./actions.type";
+import {_axios} from "@/plugins/axios";
 
 const state = {
-    name: String,
-    email: String,
-    message: String,
-    //
-    sent: false,
-    errors: {},
-    success: false,
-    sending: false
+    mailErrors: {},
+    mailSending: false,
+    mailSent: false,
+    mailSuccess: false,
 }
 
 const mutations = {
@@ -48,43 +43,32 @@ const mutations = {
 }
 
 const actions = {
-    [CONTACT_MAIL_SEND](context) {
-        context.commit(CONTACT_MAIL_SEND_START);
+    sendMail: ({commit}, mail) => {
+        commit(CONTACT_MAIL_SEND_START)
 
-        return ContactService.send({
-            name: context.state.name,
-            email: context.state.email,
-            message: context.state.message
-        }).then(response => {
-
-            if (response.status != 200)
-                return;
-
-            context.commit(CONTACT_SET_DISPLAY_STATUS, {success: true, errors: {}});
-        }).catch((error) => {
-            context.commit(CONTACT_SET_DISPLAY_STATUS, {success: false, errors: error.response.data});
-        }).finally(() => {
-            context.commit(CONTACT_MAIL_SEND_END);
-        });
-    }
+        return _axios.post('api/contact', mail)
+            .then(response => {
+                if (response.status === 200) {
+                    commit(CONTACT_SET_DISPLAY_STATUS, {success: true, errors: {}})
+                }
+            })
+            .catch((error) => {
+                commit(
+                    CONTACT_SET_DISPLAY_STATUS,
+                    {success: false, errors: error.response.data},
+                )
+            })
+            .finally(() => {
+                commit(CONTACT_MAIL_SEND_END)
+            })
+    },
 }
 
 const getters = {
-    getErrors: state => {
-        return state.errors;
-    },
-
-    success: state => {
-        return state.success;
-    },
-
-    isSending: state => {
-        return state.sending;
-    },
-
-    isSent: state => {
-        return state.sent;
-    }
+    mailErrors: state => state.mailSending,
+    mailSending: state => state.mailSending,
+    mailSent: state => state.mailSending,
+    mailSuccess: state => state.mailSending,
 }
 
 export default {

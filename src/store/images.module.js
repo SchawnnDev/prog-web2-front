@@ -1,6 +1,6 @@
-import {ImagesService} from "../common/api.service";
 import {IMAGES_LOAD_END, IMAGES_LOAD_START} from "./mutations.type";
 import {IMAGES_LOAD} from "./actions.type";
+import {_axios} from "@/plugins/axios";
 
 const state = {
     images: [],
@@ -52,7 +52,7 @@ const actions = {
         // on charge alors toutes les données.
         params['per_page'] = params.per_page * context.state.page;
         // on charge les images du back
-        return ImagesService.get(params)
+        return _axios.get('api/images', {params : params})
             .then(({data}) => {
                 setTimeout(() => context.commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
             })

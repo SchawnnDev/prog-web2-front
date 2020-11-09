@@ -1,19 +1,19 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="error-container" v-if="!this.isLoading && this.getImagesCount == 0">
+    <div class="error-container" v-if="!isLoading && getImagesCount == 0">
       <div class="sad-smiley"></div>
-      <h3>{{ this.getTranslation("views.images.errors.no-images") }}</h3>
+      <h3>{{ getTranslation("views.images.errors.no-images") }}</h3>
     </div>
 
     <div class="images-container">
-      <ImageItem v-for="(image, index) in this.getImages" :image="image" :key="image.title + index"></ImageItem>
+      <image-item v-for="(image, index) in getImages" :image="image" :key="image.title + index"></image-item>
     </div>
 
-    <beat-loader :loading="this.isLoading" :color="'orange'"></beat-loader>
+    <beat-loader :loading="isLoading" :color="'orange'"></beat-loader>
 
-    <button class="submit-button button-sm" :disabled="this.isLoading" v-on:click="loadImages(false)">
-      {{ this.getTranslation("views.images.buttons.load") }}
+    <button class="submit-button button-sm" :disabled="isLoading" v-on:click="loadImages(false)">
+      {{ getTranslation("views.images.buttons.load") }}
     </button>
 
   </div>

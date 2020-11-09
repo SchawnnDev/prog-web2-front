@@ -31,7 +31,7 @@
       <div class="founders">
 
         <div class="founder">
-          <img class="founder-img" src="../assets/img/team/paul.jpg"/>
+          <img class="founder-img" alt="Paul" src="../assets/img/team/paul.jpg"/>
           <div class="founder-details">
             <h2>Paul</h2>
             <p>{{ getTranslation('views.home.founders.president') }}</p>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="founder">
-          <img class="founder-img" src="../assets/img/team/louis.jpg"/>
+          <img class="founder-img" alt="Louis" src="../assets/img/team/louis.jpg"/>
           <div class="founder-details">
             <h2>Louis</h2>
             <p>{{ getTranslation('views.home.founders.secretary') }}</p>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="founder">
-          <img class="founder-img" src="../assets/img/team/matthieu.jpg"/>
+          <img class="founder-img" alt="Matthieu" src="../assets/img/team/matthieu.jpg"/>
           <div class="founder-details">
             <h2>Matthieu</h2>
             <p>{{ getTranslation('views.home.founders.treasurer') }}</p>
@@ -64,7 +64,6 @@ import {mapGetters} from "vuex";
 
 export default {
   name: 'Home',
-  components: {},
   computed: {
     ...mapGetters(["getTranslation"])
   }

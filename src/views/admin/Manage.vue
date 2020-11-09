@@ -6,7 +6,7 @@
 
     <div class="panel">
 
-      <beat-loader :loading="this.isLoading" :color="'orange'"></beat-loader>
+      <beat-loader :loading="isLoading" :color="'orange'"></beat-loader>
 
       <table class="images-list">
         <thead>
@@ -18,13 +18,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-bind:key="img.id" v-for="img in this.getImages">
+        <tr v-bind:key="img.id" v-for="img in getImages">
           <td>{{ img.id }}</td>
           <td>{{ img.title }}</td>
           <td><img style="height: 128px" v-bind:src="img.url"/></td>
           <td>
-            <a href="#" class="submit-button button-sm">Editer</a>
-            <a href="#" class="submit-button button-sm">Supprimer</a>
+            <div class="btn-group">
+              <a href="#" class="submit-button button-sm">Editer</a>
+              <a href="#" class="submit-button button-sm">Supprimer</a>
+            </div>
           </td>
         </tr>
         </tbody>
@@ -36,10 +38,13 @@
 <script>
 import {mapGetters} from "vuex";
 import {IMAGES_LOAD} from "@/store/actions.type";
-//import {ADMIN_ADD_IMAGE_TO_LIST} from "../../store/mutations.type";
+import BeatLoader from "vue-spinner/src/BeatLoader"
 
 export default {
   name: "Manage",
+  components: {
+    BeatLoader
+  },
   computed: {
     ...mapGetters(["getTranslation", "getImages", "isLoading"]),
   },
@@ -62,6 +67,11 @@ export default {
 
 .images-list tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 </style>
