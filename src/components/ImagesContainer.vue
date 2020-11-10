@@ -1,7 +1,7 @@
 <template>
   <div class="panel images-panel">
 
-    <div class="error-container" v-if="!isLoading && getImagesCount == 0">
+    <div class="error-container" v-if="!imagesLoading && imagesCount == 0">
       <div class="sad-smiley"></div>
       <h3>{{ getTranslation("views.images.errors.no-images") }}</h3>
     </div>
@@ -10,9 +10,9 @@
       <image-item v-for="(image, index) in getImages" :image="image" :key="image.title + index"></image-item>
     </div>
 
-    <beat-loader :loading="isLoading" :color="'orange'"></beat-loader>
+    <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
-    <button class="submit-button button-sm" :disabled="isLoading" v-on:click="loadImages(false)">
+    <button class="submit-button button-sm" :disabled="imagesLoading" v-on:click="loadImages(false)">
       {{ getTranslation("views.images.buttons.load") }}
     </button>
 
@@ -36,7 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTranslation", "getImagesCount", "getImages", "isLoading"])
+    ...mapGetters(["getTranslation", "imagesCount", "getImages", "imagesLoading"])
   },
   mounted() {
     this.loadImages(true)

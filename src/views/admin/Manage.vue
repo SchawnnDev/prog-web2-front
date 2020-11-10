@@ -6,7 +6,9 @@
 
     <div class="panel">
 
-      <beat-loader :loading="isLoading" :color="'orange'"></beat-loader>
+      <flash-message :message="imagesMessage" :displayed="imagesMessage !== null && !imagesLoading" :type="(imagesSuccess ? 'success' : 'failed')"></flash-message>
+
+      <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
       <table class="images-list">
         <thead>
@@ -21,11 +23,11 @@
         <tr v-bind:key="img.id" v-for="img in getImages">
           <td>{{ img.id }}</td>
           <td>{{ img.title }}</td>
-          <td><img style="height: 128px" v-bind:src="img.url"/></td>
+          <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
           <td>
             <div class="btn-group">
-              <a href="#" class="submit-button button-sm">Editer</a>
-              <a @click="deleteImage(img.id)" class="submit-button button-sm">Supprimer</a>
+              <button href="" class="submit-button button-sm">Editer</button>
+              <button @click="deleteImage(img.id)" class="submit-button button-sm">Supprimer</button>
             </div>
           </td>
         </tr>
@@ -39,14 +41,16 @@
 import {mapGetters} from "vuex";
 import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
+import FlashMessage from "@/components/FlashMessage";
 
 export default {
   name: "Manage",
   components: {
-    BeatLoader
+    BeatLoader,
+    FlashMessage
   },
   computed: {
-    ...mapGetters(["getTranslation", "getImages", "isLoading"]),
+    ...mapGetters(["getTranslation", "getImages", "imagesLoading", "imagesMessage", "imagesSuccess"]),
   },
   mounted() {
     this.$store.dispatch(IMAGES_LOAD, {per_page: 15})

@@ -1,4 +1,4 @@
-import {IMAGES_LOAD_END, IMAGES_LOAD_START} from "./mutations.type";
+import {IMAGES_LOAD_END, IMAGES_LOAD_START, IMAGES_SET_DISPLAY_STATUS} from "./mutations.type";
 import {IMAGES_DELETE, IMAGES_LOAD} from "./actions.type";
 import {_axios} from "@/plugins/axios";
 
@@ -6,12 +6,16 @@ const state = {
     images: [],
     loading: true,
     page: 1,
+    success: false,
+    message: "",
 }
 
 const mutations = {
+
     [IMAGES_LOAD_START](state) {
         state.loading = true;
     },
+
     [IMAGES_LOAD_END](state, data) {
         /**
          * S'il y'a encore des données dans la page, on compare et on récupère
@@ -43,27 +47,37 @@ const mutations = {
         state.loading = false;
     },
 
+
+    [IMAGES_SET_DISPLAY_STATUS](state, {success})
+    {
+        state.success = success;
+        state.message = this.getTranslation("views.images.messages.delete-" + success ? "success" : "failed");
+    }
+
 }
 
 const actions = {
+    // eslint-disable-next-line no-unused-vars
     [IMAGES_DELETE]: ({commit}, params) => {
-        return _axios.delete('api/images/' + params.id)
-            .then(({data}) => {
-                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
+        commit(IMAGES_SET_DISPLAY_STATUS, {success : false})
+        return;
+        /*return _axios.delete('api/images/' + params.id)
+            .then(() => {
+                commit(IMAGES_SET_DISPLAY_STATUS, {success : true})
             })
-            .catch(error => {
-                throw new Error(error);
-            });
+            .catch(() => {
+                commit(IMAGES_SET_DISPLAY_STATUS, {success : false})
+            });*/
     },
-    [IMAGES_LOAD](context, params) {
-        context.commit(IMAGES_LOAD_START);
+    [IMAGES_LOAD]: ({commit, state}, params) => {
+        commit(IMAGES_LOAD_START);
         // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées
         // on charge alors toutes les données.
-        params['per_page'] = params.per_page * context.state.page;
+        params['per_page'] = params.per_page * state.page;
         // on charge les images du back
         return _axios.get('api/images', {params : params})
             .then(({data}) => {
-                setTimeout(() => context.commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
+                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
             })
             .catch(error => {
                 throw new Error(error);
@@ -72,19 +86,11 @@ const actions = {
 }
 
 const getters = {
-
-    getImagesCount: state => {
-        return !state.images ? 0 : state.images.length;
-    },
-
-    getImages: state => {
-        return state.images;
-    },
-
-    isLoading: state => {
-        return state.loading;
-    }
-
+    imagesCount: state => !state.images ? 0 : state.images.length,
+    getImages: state => state.images,
+    imagesLoading: state => state.loading,
+    imagesMessage: state => state.message,
+    imagesSuccess: state => state.success
 }
 
 export default {

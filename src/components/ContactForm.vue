@@ -102,25 +102,6 @@ export default {
 
 <style scoped>
 
-.input-form .alert {
-  padding: 15px;
-  border: 1px solid #c3e6cb;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  color: #155724;
-  background-color: #d4edda;
-}
-
-.input-form .alert li {
-  text-decoration: none;
-}
-
-.input-form .alert.danger {
-  border: 1px #f5c6cb solid;
-  color: #721c24;
-  background-color: #f8d7da;
-}
-
 .loader {
   display: flex;
   justify-content: center;

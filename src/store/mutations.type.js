@@ -4,6 +4,7 @@ export const LANG_CHANGE = "changeLanguage";
 export const IMAGES_ADD = "addImages";
 export const IMAGES_LOAD_START ="imagesLoadStart";
 export const IMAGES_LOAD_END ="imagesLoadEnd";
+export const IMAGES_SET_DISPLAY_STATUS = "imagesDisplayStatus";
 
 export const ADMIN_SET_IMAGES_LIST = "adminSetImagesList";
 export const ADMIN_ADD_IMAGE_TO_LIST = "adminAddImageToList";
