@@ -1,5 +1,5 @@
 <template>
-  <div class="alert" v-bind:class="type" v-show="displayMessage !== null && displayed">{{ displayMessage }}</div>
+  <div class="alert" v-bind:class="{'danger' : !type }" v-show="displayMessage !== null && displayed">{{ displayMessage }}</div>
 </template>
 
 <script>
@@ -8,17 +8,17 @@ export default {
   data() {
     return {
       timer: null,
-      displayMessage: "",
+      displayMessage: null,
     }
   },
   props: {
     message: String,
 
-    type: String,
+    type: Boolean,
 
     timeout: {
       type: Number,
-      default: 1000
+      default: 5000
     },
 
     displayed: {
@@ -47,4 +47,23 @@ export default {
 
 <style scoped>
 
+.alert {
+  padding: 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #155724;
+  background-color: #d4edda;
+  width: 100%;
+}
+
+.alert li {
+  text-decoration: none;
+}
+
+.alert.danger {
+  border: 1px #f5c6cb solid;
+  color: #721c24;
+  background-color: #f8d7da;
+}
 </style>

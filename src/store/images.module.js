@@ -48,26 +48,28 @@ const mutations = {
     },
 
 
-    [IMAGES_SET_DISPLAY_STATUS](state, {success})
-    {
+    [IMAGES_SET_DISPLAY_STATUS](state, {success, message}) {
         state.success = success;
-        state.message = this.getTranslation("views.images.messages.delete-" + success ? "success" : "failed");
+        state.message = message;
     }
 
 }
 
 const actions = {
-    // eslint-disable-next-line no-unused-vars
-    [IMAGES_DELETE]: ({commit}, params) => {
-        commit(IMAGES_SET_DISPLAY_STATUS, {success : false})
-        return;
-        /*return _axios.delete('api/images/' + params.id)
+    [IMAGES_DELETE]: ({commit, rootGetters}, params) => {
+        return _axios.delete('api/images/' + params.id)
             .then(() => {
-                commit(IMAGES_SET_DISPLAY_STATUS, {success : true})
+                commit(IMAGES_SET_DISPLAY_STATUS, {
+                    success: true,
+                    message: rootGetters.getTranslation("views.images.messages.delete-success")
+                })
             })
             .catch(() => {
-                commit(IMAGES_SET_DISPLAY_STATUS, {success : false})
-            });*/
+                commit(IMAGES_SET_DISPLAY_STATUS, {
+                    success: false,
+                    message: rootGetters.getTranslation("views.images.messages.delete-failed")
+                })
+            });
     },
     [IMAGES_LOAD]: ({commit, state}, params) => {
         commit(IMAGES_LOAD_START);
@@ -75,9 +77,9 @@ const actions = {
         // on charge alors toutes les données.
         params['per_page'] = params.per_page * state.page;
         // on charge les images du back
-        return _axios.get('api/images', {params : params})
+        return _axios.get('api/images', {params: params})
             .then(({data}) => {
-                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
+                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}), 500)
             })
             .catch(error => {
                 throw new Error(error);

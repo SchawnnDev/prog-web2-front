@@ -6,7 +6,7 @@
 
     <div class="panel">
 
-      <flash-message :message="imagesMessage" :displayed="imagesMessage !== null && !imagesLoading" :type="(imagesSuccess ? 'success' : 'failed')"></flash-message>
+      <flash-message :message="imagesMessage" :displayed="!(imagesMessage === null || imagesLoading)" :type="imagesSuccess"></flash-message>
 
       <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
