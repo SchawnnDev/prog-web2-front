@@ -1,5 +1,5 @@
 import {IMAGES_LOAD_END, IMAGES_LOAD_START} from "./mutations.type";
-import {IMAGES_LOAD} from "./actions.type";
+import {IMAGES_DELETE, IMAGES_LOAD} from "./actions.type";
 import {_axios} from "@/plugins/axios";
 
 const state = {
@@ -41,11 +41,20 @@ const mutations = {
             state.page++;
 
         state.loading = false;
-    }
+    },
 
 }
 
 const actions = {
+    [IMAGES_DELETE]: ({commit}, params) => {
+        return _axios.delete('api/images/' + params.id)
+            .then(({data}) => {
+                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}),500)
+            })
+            .catch(error => {
+                throw new Error(error);
+            });
+    },
     [IMAGES_LOAD](context, params) {
         context.commit(IMAGES_LOAD_START);
         // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées

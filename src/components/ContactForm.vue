@@ -62,8 +62,9 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 import BeatLoader from 'vue-spinner/src/BeatLoader'
+import {CONTACT_MAIL_SEND} from "@/store/actions.type";
 
 export default {
   name: 'ContactForm',
@@ -91,11 +92,8 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'sendMail',
-    ]),
     sendEmail() {
-      this.sendMail(this.formValues)
+      this.$store.dispatch(CONTACT_MAIL_SEND, this.formValues)
     },
   },
 

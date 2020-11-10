@@ -25,7 +25,7 @@
           <td>
             <div class="btn-group">
               <a href="#" class="submit-button button-sm">Editer</a>
-              <a href="#" class="submit-button button-sm">Supprimer</a>
+              <a @click="deleteImage(img.id)" class="submit-button button-sm">Supprimer</a>
             </div>
           </td>
         </tr>
@@ -37,7 +37,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {IMAGES_LOAD} from "@/store/actions.type";
+import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
 
 export default {
@@ -50,6 +50,15 @@ export default {
   },
   mounted() {
     this.$store.dispatch(IMAGES_LOAD, {per_page: 15})
+  },
+
+  methods: {
+
+    deleteImage(id) {
+      if (!confirm(this.getTranslation("views.admin.manage.messages.delete-image"))) return;
+      this.$store.dispatch(IMAGES_DELETE, {id : id})
+    }
+
   }
 }
 </script>

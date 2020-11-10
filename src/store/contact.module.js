@@ -4,6 +4,7 @@ import {
     CONTACT_MAIL_SET_EMAIL, CONTACT_MAIL_SET_MESSAGE, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
 } from "./mutations.type";
 import {_axios} from "@/plugins/axios";
+import {CONTACT_MAIL_SEND} from "@/store/actions.type";
 
 const state = {
     mailErrors: {},
@@ -43,7 +44,7 @@ const mutations = {
 }
 
 const actions = {
-    sendMail: ({commit}, mail) => {
+    [CONTACT_MAIL_SEND]: ({commit}, mail) => {
         commit(CONTACT_MAIL_SEND_START)
 
         return _axios.post('api/contact', mail)
