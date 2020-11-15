@@ -6,9 +6,8 @@ export const IMAGES_LOAD_START ="imagesLoadStart";
 export const IMAGES_LOAD_END ="imagesLoadEnd";
 export const IMAGES_SET_DISPLAY_STATUS = "imagesDisplayStatus";
 
-export const ADMIN_SET_IMAGES_LIST = "adminSetImagesList";
-export const ADMIN_ADD_IMAGE_TO_LIST = "adminAddImageToList";
-export const ADMIN_SET_IMAGES = "adminSetImages";
+export const IMAGES_OPEN_EDIT_BOX = "imagesOpenEditBox";
+export const IMAGES_CLOSE_EDIT_BOX = "imagesCloseEditBox";
 
 export const CONTACT_SET_DISPLAY_STATUS = "contactDisplayStatus";
 export const CONTACT_MAIL_SET_NAME = "contactMailSetName";

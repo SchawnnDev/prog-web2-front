@@ -26,13 +26,15 @@
           <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
           <td>
             <div class="btn-group">
-              <button href="" class="submit-button button-sm">Editer</button>
+              <button @click="displayBox(img)" class="submit-button button-sm">Editer</button>
               <button @click="deleteImage(img.id)" class="submit-button button-sm">Supprimer</button>
             </div>
           </td>
         </tr>
         </tbody>
       </table>
+
+      <image-edit />
     </div>
   </div>
 </template>
@@ -42,10 +44,13 @@ import {mapGetters} from "vuex";
 import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
 import FlashMessage from "@/components/FlashMessage";
+import ImageEdit from "@/views/admin/articles/ImageEdit";
+import {IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
 
 export default {
   name: "Manage",
   components: {
+    ImageEdit,
     BeatLoader,
     FlashMessage
   },
@@ -61,6 +66,10 @@ export default {
     deleteImage(id) {
       if (!confirm(this.getTranslation("views.admin.manage.messages.delete-image"))) return;
       this.$store.dispatch(IMAGES_DELETE, {id : id})
+    },
+
+    displayBox(img) {
+      this.$store.commit(IMAGES_OPEN_EDIT_BOX, img);
     }
 
   }

@@ -44,7 +44,7 @@ export default {
   methods: {
     loadImages(init = false) {
 
-      if (init && this.getImagesCount != 0)
+      if (init && this.imagesCount != 0)
         return;
 
       this.$store.dispatch(IMAGES_LOAD, {per_page: this.per_page});

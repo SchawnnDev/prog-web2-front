@@ -14,7 +14,10 @@ export default {
   props: {
     message: String,
 
-    type: Boolean,
+    type: {
+      type: Boolean,
+      default: true // true -> success & false -> danger
+    },
 
     timeout: {
       type: Number,
@@ -36,7 +39,6 @@ export default {
 
         this.timer = setTimeout(() => {
           this.displayMessage = null;
-          console.log("bla");
         }, this.timeout);
 
       },

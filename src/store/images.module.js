@@ -1,6 +1,7 @@
 import {IMAGES_LOAD_END, IMAGES_LOAD_START, IMAGES_SET_DISPLAY_STATUS} from "./mutations.type";
 import {IMAGES_DELETE, IMAGES_LOAD} from "./actions.type";
 import {_axios} from "@/plugins/axios";
+import {IMAGES_CLOSE_EDIT_BOX, IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
 
 const state = {
     images: [],
@@ -8,9 +9,30 @@ const state = {
     page: 1,
     success: false,
     message: "",
+
+    boxDisplayed: false,
+    boxImage: Image,
+    boxSubmitting: false
+}
+
+const Image = {
+    id: "",
+    title: "",
+    description: "",
+    url: ""
 }
 
 const mutations = {
+
+    [IMAGES_OPEN_EDIT_BOX](state, image) {
+        state.boxDisplayed = true;
+        state.boxImage = image;
+    },
+
+    [IMAGES_CLOSE_EDIT_BOX](state) {
+        state.boxDisplayed = false;
+        state.boxImage = {};
+    },
 
     [IMAGES_LOAD_START](state) {
         state.loading = true;
@@ -92,7 +114,10 @@ const getters = {
     getImages: state => state.images,
     imagesLoading: state => state.loading,
     imagesMessage: state => state.message,
-    imagesSuccess: state => state.success
+    imagesSuccess: state => state.success,
+    imagesBoxItem: state => state.boxImage,
+    imagesBoxDisplayed: state => state.boxDisplayed,
+    imagesBoxSubmitting: state => state.boxSubmitting
 }
 
 export default {
