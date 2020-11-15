@@ -44,7 +44,7 @@ import {mapGetters} from "vuex";
 import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
 import FlashMessage from "@/components/FlashMessage";
-import ImageEdit from "@/views/admin/articles/ImageEdit";
+import ImageEdit from "@/components/ImageEdit";
 import {IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
 
 export default {
