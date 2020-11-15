@@ -10,10 +10,11 @@
 
       <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
+      <button @click="displayBox({id: ''})" class="submit-button button-sm">{{getTranslation('views.admin.manage.buttons.add')}}</button>
+
       <table class="images-list">
         <thead>
         <tr>
-          <td>Id</td>
           <td>Titre</td>
           <td>Image</td>
           <td>Actions</td>
@@ -21,13 +22,12 @@
         </thead>
         <tbody>
         <tr v-bind:key="img.id" v-for="img in getImages">
-          <td>{{ img.id }}</td>
           <td>{{ img.title }}</td>
           <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
           <td>
             <div class="btn-group">
-              <button @click="displayBox(img)" class="submit-button button-sm">Editer</button>
-              <button @click="deleteImage(img.id)" class="submit-button button-sm">Supprimer</button>
+              <button @click="displayBox(img)" class="submit-button button-sm">{{getTranslation('views.images.buttons.edit')}}</button>
+              <button @click="deleteImage(img.id)" class="submit-button button-sm">{{getTranslation('views.admin.manage.buttons.delete')}}</button>
             </div>
           </td>
         </tr>

@@ -34,7 +34,7 @@
   cursor: progress;
 }
 
-.input-group input[type=text], textarea, input[type=email] {
+.input-group input[type=text], textarea, input[type=email], input[type=file] {
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #eee;

@@ -23,10 +23,17 @@
       "images": {
         "title": "Photos of past events",
         "buttons": {
-          "load": "Load more..."
+          "load": "Load more...",
+          "create" : "Create",
+          "edit" : "Edit"
         },
         "errors": {
           "no-images": "There are no images available."
+        },
+        "form": {
+          "title" : "Title",
+          "description" : "Description",
+          "image" : "Image file"
         }
       },
       "contact": {
@@ -46,6 +53,22 @@
           "success": "Your message was successfully sent to us.",
           "error": "Your message could not be sent to us.",
           "missing-args": "Please fill in all required fields."
+        }
+      },
+      "admin": {
+        "manage": {
+          "title" : "Manage events images",
+          "box-title": {
+            "create": "Add a new image",
+            "update": "Edit an existing image"
+          },
+          "messages": {
+            "delete-image": "Are you sure you want to delete this image?"
+          },
+          "buttons": {
+            "add": "Add a new image",
+            "delete" : "Delete"
+          }
         }
       }
     }
@@ -74,10 +97,17 @@
       "images": {
         "title": "Photos d'événements passés",
         "buttons": {
-          "load": "Charger plus..."
+          "load": "Charger plus...",
+          "create" : "Créer",
+          "edit" : "Mettre à jour"
         },
         "errors": {
           "no-images": "Il n'y a pas d'images disponibles."
+        },
+        "form": {
+          "title" : "Titre",
+          "description" : "Description",
+          "image" : "Fichier de l'image"
         }
       },
       "contact": {
@@ -97,6 +127,22 @@
           "success": "Votre message nous a été envoyé avec succès.",
           "error": "Votre message n'a pas pu nous être envoyé.",
           "missing-args": "Veuillez remplir tous les champs obligatoires."
+        }
+      },
+      "admin": {
+        "manage": {
+          "title" : "Gérer les images d'évenements",
+          "box-title": {
+            "create": "Ajout d'une nouvelle image",
+            "update": "Gérer une image existante"
+          },
+          "messages": {
+            "delete-image": "Etes vous sûr de vouloir supprimer cette image ?"
+          },
+          "buttons": {
+            "add": "Ajouter une nouvelle image",
+            "delete" : "Supprimer"
+          }
         }
       }
     }
@@ -125,10 +171,17 @@
       "images": {
         "title": "Fotos von vergangenen Veranstaltungen",
         "buttons": {
-          "load": "Mehr laden..."
+          "load": "Mehr laden...",
+          "create" : "Erstellen",
+          "edit" : "Updaten"
         },
         "errors": {
           "no-images": "Es sind keine Bilder verfügbar."
+        },
+        "form": {
+          "title" : "Titel",
+          "description" : "Beschreibung",
+          "image" : "Datei des Bildes"
         }
       },
       "contact": {
@@ -148,6 +201,22 @@
           "success": "Ihre Nachricht wurde erfolgreich an uns gesendet.",
           "error": "Ihre Nachricht konnte nicht an uns gesendet werden.",
           "missing-args": "Bitte füllen Sie alle Pflichtfelder aus."
+        }
+      },
+      "admin": {
+        "manage": {
+          "title" : "Veranstaltungsbilder Verwalung",
+          "box-title": {
+            "create": "Ein neues Bild hinzufügen",
+            "update": "Ein Bild verwalten"
+          },
+          "messages": {
+            "delete-image": "Sind Sie sicher, dass Sie dieses Bild löschen möchten?"
+          },
+          "buttons": {
+            "add": "Ein neues Bild hinzufügen",
+            "delete" : "Löschen"
+          }
         }
       }
     }
