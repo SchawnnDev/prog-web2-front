@@ -45,6 +45,7 @@
 <script>
 import {mapGetters} from "vuex";
 import {IMAGES_CLOSE_EDIT_BOX} from "@/store/mutations.type";
+import {IMAGES_SEND} from "@/store/actions.type";
 
 export default {
   name: "ImageEdit",
@@ -56,18 +57,22 @@ export default {
       this.$store.commit(IMAGES_CLOSE_EDIT_BOX);
     },
 
-    sendForm() {
+    isCreated() {
+      return this.imagesBoxItem.id !== "";
+    },
 
+    sendForm() {
+      this.$store.dispatch(IMAGES_SEND, this.isCreated());
     },
 
     buttonName() {
       let name = "views.images.buttons.";
-      return this.imagesBoxItem.id === "" ? name + "create" : name + "edit";
+      return !this.isCreated() ? name + "create" : name + "edit";
     },
 
     titleName() {
       let name = "views.admin.manage.box-title.";
-      return this.imagesBoxItem.id === "" ? name + "create" : name + "update";
+      return !this.isCreated() ? name + "create" : name + "update";
     }
 
   },
@@ -95,6 +100,7 @@ export default {
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
     opacity: 0;
+    overflow: hidden;
   }
   100% {
     -webkit-transform: translateY(0) rotateX(0) scale(1);
@@ -111,6 +117,7 @@ export default {
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
     opacity: 0;
+    overflow: hidden;
   }
   100% {
     -webkit-transform: translateY(0) rotateX(0) scale(1);

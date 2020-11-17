@@ -8,6 +8,8 @@ export const IMAGES_SET_DISPLAY_STATUS = "imagesDisplayStatus";
 
 export const IMAGES_OPEN_EDIT_BOX = "imagesOpenEditBox";
 export const IMAGES_CLOSE_EDIT_BOX = "imagesCloseEditBox";
+export const IMAGES_BOX_SEND_START = "imagesBoxSendStart";
+export const IMAGES_BOX_SEND_END = "imagesBoxSendEnd";
 
 export const CONTACT_SET_DISPLAY_STATUS = "contactDisplayStatus";
 export const CONTACT_MAIL_SET_NAME = "contactMailSetName";

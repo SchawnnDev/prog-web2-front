@@ -1,7 +1,12 @@
 import {IMAGES_LOAD_END, IMAGES_LOAD_START, IMAGES_SET_DISPLAY_STATUS} from "./mutations.type";
-import {IMAGES_DELETE, IMAGES_LOAD} from "./actions.type";
+import {IMAGES_DELETE, IMAGES_LOAD, IMAGES_SEND} from "./actions.type";
 import {_axios} from "@/plugins/axios";
-import {IMAGES_CLOSE_EDIT_BOX, IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
+import {
+    IMAGES_BOX_SEND_END,
+    IMAGES_BOX_SEND_START,
+    IMAGES_CLOSE_EDIT_BOX,
+    IMAGES_OPEN_EDIT_BOX
+} from "@/store/mutations.type";
 
 const state = {
     images: [],
@@ -12,7 +17,9 @@ const state = {
 
     boxDisplayed: false,
     boxImage: Image,
-    boxSubmitting: false
+    boxSubmitting: false,
+    boxSubmitError: "",
+    boxSubmitSuccess: false,
 }
 
 const Image = {
@@ -23,6 +30,19 @@ const Image = {
 }
 
 const mutations = {
+
+    [IMAGES_BOX_SEND_START](state) {
+        state.boxSubmitting = true;
+        state.boxSubmitError = "";
+        state.boxSubmitSuccess = false;
+    },
+
+    // eslint-disable-next-line no-unused-vars
+    [IMAGES_BOX_SEND_END](state, {success, data}) {
+        state.boxSubmitting = false;
+        state.boxSubmitSuccess = success;
+        state.boxSubmitError = "";
+    },
 
     [IMAGES_OPEN_EDIT_BOX](state, image) {
         state.boxDisplayed = true;
@@ -78,6 +98,16 @@ const mutations = {
 }
 
 const actions = {
+    [IMAGES_SEND]: ({commit, state}, create) => {
+        let query = !create ? _axios.post('api/images', state.boxImage) : _axios.put('api/images/' + state.boxImage.id, state.boxImage);
+
+        return query.then(({data}) => {
+            commit(IMAGES_BOX_SEND_END, {data: data, success: true});
+        }).catch(({data}) => {
+            commit(IMAGES_BOX_SEND_END, {data: data, success: false});
+        });
+
+    },
     [IMAGES_DELETE]: ({commit, rootGetters}, params) => {
         return _axios.delete('api/images/' + params.id)
             .then(() => {
