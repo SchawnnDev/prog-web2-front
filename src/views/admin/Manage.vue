@@ -6,11 +6,14 @@
 
     <div class="panel">
 
-      <flash-message :message="imagesMessage" :displayed="!(imagesMessage === null || imagesLoading)" :type="imagesSuccess"></flash-message>
+      <flash-message :message="imagesMessage" :displayed="!(imagesMessage === null || imagesLoading)"
+                     :type="imagesSuccess"></flash-message>
 
       <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
-      <button @click="displayBox({id: ''})" class="submit-button button-sm">{{getTranslation('views.admin.manage.buttons.add')}}</button>
+      <button @click="displayBox({id: ''})" class="submit-button button-sm">
+        {{ getTranslation('views.admin.manage.buttons.add') }}
+      </button>
 
       <table class="images-list">
         <thead>
@@ -26,15 +29,19 @@
           <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
           <td>
             <div class="btn-group">
-              <button @click="displayBox(img)" class="submit-button button-sm">{{getTranslation('views.images.buttons.edit')}}</button>
-              <button @click="deleteImage(img.id)" class="submit-button button-sm">{{getTranslation('views.admin.manage.buttons.delete')}}</button>
+              <button @click="displayBox(img)" class="submit-button button-sm">
+                {{ getTranslation('views.images.buttons.edit') }}
+              </button>
+              <button @click="deleteImage(img.id)" class="submit-button button-sm">
+                {{ getTranslation('views.admin.manage.buttons.delete') }}
+              </button>
             </div>
           </td>
         </tr>
         </tbody>
       </table>
 
-      <image-edit />
+      <image-edit/>
     </div>
   </div>
 </template>
@@ -65,7 +72,7 @@ export default {
 
     deleteImage(id) {
       if (!confirm(this.getTranslation("views.admin.manage.messages.delete-image"))) return;
-      this.$store.dispatch(IMAGES_DELETE, {id : id})
+      this.$store.dispatch(IMAGES_DELETE, {id: id})
     },
 
     displayBox(img) {

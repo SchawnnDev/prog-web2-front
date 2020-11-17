@@ -18,7 +18,7 @@ const state = {
     boxDisplayed: false,
     boxImage: Image,
     boxSubmitting: false,
-    boxSubmitError: "",
+    boxSubmitErrors: "",
     boxSubmitSuccess: false,
 }
 
@@ -33,15 +33,23 @@ const mutations = {
 
     [IMAGES_BOX_SEND_START](state) {
         state.boxSubmitting = true;
-        state.boxSubmitError = "";
+        state.boxSubmitErrors = {};
         state.boxSubmitSuccess = false;
     },
 
     // eslint-disable-next-line no-unused-vars
-    [IMAGES_BOX_SEND_END](state, {success, data}) {
+    [IMAGES_BOX_SEND_END](state, {success, data, message}) {
         state.boxSubmitting = false;
         state.boxSubmitSuccess = success;
-        state.boxSubmitError = "";
+        state.boxSubmitErrors = !success ? data : {};
+
+        if(!success)
+            return;
+
+        state.message = message;
+        state.success = true;
+        state.boxImage = {};
+        state.boxDisplayed = false;
     },
 
     [IMAGES_OPEN_EDIT_BOX](state, image) {
@@ -52,6 +60,8 @@ const mutations = {
     [IMAGES_CLOSE_EDIT_BOX](state) {
         state.boxDisplayed = false;
         state.boxImage = {};
+        state.boxSubmitSuccess = false;
+        state.boxSubmitErrors = {};
     },
 
     [IMAGES_LOAD_START](state) {
@@ -98,13 +108,14 @@ const mutations = {
 }
 
 const actions = {
-    [IMAGES_SEND]: ({commit, state}, create) => {
-        let query = !create ? _axios.post('api/images', state.boxImage) : _axios.put('api/images/' + state.boxImage.id, state.boxImage);
+    [IMAGES_SEND]: ({commit, state, rootGetters}, created) => {
+        let query = !created ? _axios.post('api/images', state.boxImage) : _axios.put('api/images/' + state.boxImage.id, state.boxImage);
+        let translation = 'views.admin.manage.messages.' + (created ? 'update-success' : 'create-success');
 
-        return query.then(({data}) => {
-            commit(IMAGES_BOX_SEND_END, {data: data, success: true});
-        }).catch(({data}) => {
-            commit(IMAGES_BOX_SEND_END, {data: data, success: false});
+        return query.then(data => {
+            commit(IMAGES_BOX_SEND_END, {data: data, success: true, message: rootGetters.getTranslation(translation)});
+        }).catch(({response}) => {
+            commit(IMAGES_BOX_SEND_END, {data: response.data, success: false, message: ""});
         });
 
     },
@@ -147,7 +158,9 @@ const getters = {
     imagesSuccess: state => state.success,
     imagesBoxItem: state => state.boxImage,
     imagesBoxDisplayed: state => state.boxDisplayed,
-    imagesBoxSubmitting: state => state.boxSubmitting
+    imagesBoxSubmitting: state => state.boxSubmitting,
+    imagesBoxSuccess: state => state.boxSubmitSuccess,
+    imagesBoxErrors: state => state.boxSubmitErrors
 }
 
 export default {

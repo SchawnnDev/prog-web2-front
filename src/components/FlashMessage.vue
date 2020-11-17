@@ -1,5 +1,9 @@
 <template>
-  <div class="alert" v-bind:class="{'danger' : !type }" v-show="displayMessage !== null && displayed">{{ displayMessage }}</div>
+  <transition name="fade">
+    <div class="alert" v-bind:class="{'danger' : !type }" v-show="message !== '' && displayed">
+      <component :is="messageComponent" :msg="{message: message}"/>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -8,7 +12,34 @@ export default {
   data() {
     return {
       timer: null,
-      displayMessage: null,
+
+      messageComponent: {
+        template: '<p>{{msg.message}}</p>',
+
+        props: {
+          msg: Object
+        },
+
+        watch: {
+          msg: {
+
+            // eslint-disable-next-line no-unused-vars
+            handler(val) {
+              clearTimeout(this.timer);
+              this.displayedMessage = val.message;
+              console.log(this.displayedMessage)
+
+              this.timer = setTimeout(() => {
+                val.message = '';
+              }, this.timeout);
+
+            },
+            deep: true
+          }
+        }
+
+      }
+
     }
   },
   props: {
@@ -29,43 +60,8 @@ export default {
       default: false
     }
   },
-
-  watch: {
-    message: {
-      deep: true,
-      handler(val) {
-        clearTimeout(this.timer);
-        this.displayMessage = val;
-
-        this.timer = setTimeout(() => {
-          this.displayMessage = null;
-        }, this.timeout);
-
-      },
-    }
-  }
 }
 </script>
 
 <style scoped>
-
-.alert {
-  padding: 15px;
-  border: 1px solid #c3e6cb;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  color: #155724;
-  background-color: #d4edda;
-  width: 100%;
-}
-
-.alert li {
-  text-decoration: none;
-}
-
-.alert.danger {
-  border: 1px #f5c6cb solid;
-  color: #721c24;
-  background-color: #f8d7da;
-}
 </style>

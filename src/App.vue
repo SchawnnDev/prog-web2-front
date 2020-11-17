@@ -49,6 +49,10 @@
   resize: vertical;
 }
 
+.input-group .error {
+  border: 1px solid indianred !important;
+}
+
 .submit-button {
   appearance: none;
   -webkit-appearance: none;
@@ -82,6 +86,26 @@
 
 .submit-button.button-delete {
   background-color: indianred;
+}
+
+.alert {
+  padding: 15px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #155724;
+  background-color: #d4edda;
+  width: 100%;
+}
+
+.alert li {
+  text-decoration: none;
+}
+
+.alert.danger {
+  border: 1px #f5c6cb solid;
+  color: #721c24;
+  background-color: #f8d7da;
 }
 
 .title-container {
@@ -169,6 +193,14 @@ hr.separator {
     font-size: 12px;
   }
 
+}
+
+/* VueJS leave */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 </style>

@@ -1,45 +1,59 @@
 <template>
-  <div v-if="imagesBoxDisplayed" class="box">
-    <!-- Modal content -->
-    <div class="content">
-      <span class="close" @click="closeBox()">&times;</span>
+  <transition name="fade">
+    <div v-if="imagesBoxDisplayed" class="box">
+      <!-- Modal content -->
+      <div class="content">
+        <span class="close" @click="closeBox()">&times;</span>
 
-      <h3>{{getTranslation(titleName())}}</h3>
-
-      <form @submit.prevent="sendForm">
-
-        <div class="input-group">
-          <label for="title">{{ getTranslation('views.images.form.title') }}</label>
-          <input :disabled="imagesBoxSubmitting"
-                 v-model="imagesBoxItem.title"
-                 type="text"
-                 id="title">
+        <div class="alert" v-bind:class="{ 'danger' : !imagesBoxSuccess}"
+             v-if="!imagesBoxSubmitting && Object.keys(imagesBoxErrors).length !== 0">
+          <div v-for="(v, k) in imagesBoxErrors.errors"
+               v-bind:key="k">
+            <p v-for="error in v" v-bind:key="error">
+              {{ error }}
+            </p>
+          </div>
         </div>
 
-        <div class="input-group">
-          <label for="description">{{ getTranslation('views.images.form.description') }}</label>
-          <textarea :disabled="imagesBoxSubmitting"
-                    v-model="imagesBoxItem.description"
-                    cols="30"
-                    id="description"
-                    required
-                    rows="5"
-          />
-        </div>
+        <h3>{{ getTranslation(titleName()) }}</h3>
 
-        <div class="input-group">
-          <label for="file">{{ getTranslation('views.images.form.image') }}</label>
-          <input :disabled="imagesBoxSubmitting" id="file" type="file" />
-        </div>
+        <form @submit.prevent="sendForm">
 
-        <button :disabled="imagesBoxSubmitting" class="submit-button button-sm">
-          {{ getTranslation(buttonName()) }}
-        </button>
-      </form>
+          <div class="input-group">
+            <label for="title">{{ getTranslation('views.images.form.title') }}</label>
+            <input :disabled="imagesBoxSubmitting"
+                   v-model="imagesBoxItem.title"
+                   type="text"
+                   required
+                   id="title"
+                   v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.title}">
+          </div>
+
+          <div class="input-group">
+            <label for="description">{{ getTranslation('views.images.form.description') }}</label>
+            <textarea :disabled="imagesBoxSubmitting"
+                      v-model="imagesBoxItem.description"
+                      cols="30"
+                      id="description"
+                      required
+                      rows="5"
+                      v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.description}"/>
+          </div>
+
+          <div class="input-group">
+            <label for="file">{{ getTranslation('views.images.form.image') }}</label>
+            <input :disabled="imagesBoxSubmitting" id="file" type="file"/>
+          </div>
+
+          <button :disabled="imagesBoxSubmitting" class="submit-button button-sm">
+            {{ getTranslation(buttonName()) }}
+          </button>
+        </form>
+
+      </div>
 
     </div>
-
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -50,7 +64,7 @@ import {IMAGES_SEND} from "@/store/actions.type";
 export default {
   name: "ImageEdit",
   computed: {
-    ...mapGetters(["getTranslation", "imagesBoxItem", "imagesBoxDisplayed", "imagesBoxSubmitting"])
+    ...mapGetters(["getTranslation", "imagesBoxItem", "imagesBoxDisplayed", "imagesBoxSubmitting", "imagesBoxSuccess", "imagesBoxErrors"])
   },
   methods: {
     closeBox() {
@@ -110,6 +124,7 @@ export default {
     opacity: 1;
   }
 }
+
 @keyframes slide-in-elliptic-top-fwd {
   0% {
     -webkit-transform: translateY(-600px) rotateX(-30deg) scale(0);
