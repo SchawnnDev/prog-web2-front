@@ -1,10 +1,15 @@
 import {
-    CONTACT_SET_DISPLAY_STATUS,
-    CONTACT_MAIL_SET_NAME,
-    CONTACT_MAIL_SET_EMAIL, CONTACT_MAIL_SET_MESSAGE, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
+    CONTACT_SET_DISPLAY_STATUS, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
 } from "./mutations.type";
 import {_axios} from "@/plugins/axios";
 import {CONTACT_MAIL_SEND} from "@/store/actions.type";
+import {CONTACT_MAIL_RESET} from "@/store/mutations.type";
+
+export const MailForm = {
+    name: '',
+    email: '',
+    message: '',
+}
 
 const state = {
     mailErrors: {},
@@ -16,47 +21,71 @@ const state = {
 const mutations = {
 
     [CONTACT_SET_DISPLAY_STATUS](state, data) {
-        state.sent = true;
-        state.errors = data.errors;
-        state.success = data.success;
-    },
+        state.mailSent = true;
+        state.mailErrors = data.errors;
+        state.mailSuccess = data.success;
 
-    [CONTACT_MAIL_SET_NAME](state, name) {
-        state.name = name;
-    },
+        if (!state.mailSuccess) return;
 
-    [CONTACT_MAIL_SET_EMAIL](state, email) {
-        state.email = email;
-    },
+        data.mail.name = '';
+        data.mail.email = '';
+        data.mail.message = '';
 
-    [CONTACT_MAIL_SET_MESSAGE](state, message) {
-        state.message = message;
     },
 
     [CONTACT_MAIL_SEND_START](state) {
-        state.sending = true;
+        state.mailSending = true;
+        state.mailSent = false;
+        state.mailSuccess = false;
     },
 
     [CONTACT_MAIL_SEND_END](state) {
-        state.sending = false;
+        state.mailSending = false;
     },
+
+    [CONTACT_MAIL_RESET](state) {
+        state.mailSent = false
+        state.mailErrors = {}
+        state.mailSuccess = false
+        state.mailSending = false
+    }
 
 }
 
+
 const actions = {
-    [CONTACT_MAIL_SEND]: ({commit}, mail) => {
+    [CONTACT_MAIL_SEND]: ({commit, rootGetters}, mail) => {
         commit(CONTACT_MAIL_SEND_START)
+
+        let emailSimpleRegex = /\S+@\S+\.\S+/;
+        let errors = []
+        // Si non valide, il y'a toujours encore une validation au niveau du backend.
+
+        if (mail.name.length < 2 || mail.name.length > 64)
+            errors.push({message: rootGetters.getTranslation('views.contact.messages.validation.name')});
+
+        if (!emailSimpleRegex.test(mail.email))
+            errors.push({message: rootGetters.getTranslation('views.contact.messages.validation.email')});
+
+        if (mail.message.length < 8 || mail.message.length > 2056)
+            errors.push({message: rootGetters.getTranslation('views.contact.messages.validation.message')});
+
+        if (errors.length !== 0) {
+            commit(CONTACT_SET_DISPLAY_STATUS, {success: false, errors: {errors: errors}, mail: mail})
+            commit(CONTACT_MAIL_SEND_END)
+            return false;
+        }
 
         return _axios.post('api/contact', mail)
             .then(response => {
                 if (response.status === 200) {
-                    commit(CONTACT_SET_DISPLAY_STATUS, {success: true, errors: {}})
+                    commit(CONTACT_SET_DISPLAY_STATUS, {success: true, errors: {messages: ""}, mail: mail})
                 }
             })
             .catch((error) => {
                 commit(
                     CONTACT_SET_DISPLAY_STATUS,
-                    {success: false, errors: error.response.data},
+                    {success: false, errors: error.response.data, mail: mail},
                 )
             })
             .finally(() => {
@@ -66,10 +95,10 @@ const actions = {
 }
 
 const getters = {
-    mailErrors: state => state.mailSending,
+    mailErrors: state => state.mailErrors,
     mailSending: state => state.mailSending,
-    mailSent: state => state.mailSending,
-    mailSuccess: state => state.mailSending,
+    mailSent: state => state.mailSent,
+    mailSuccess: state => state.mailSuccess,
 }
 
 export default {

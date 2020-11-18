@@ -4,20 +4,23 @@
 
     <beat-loader :loading="mailSending" :color="'orange'" class="loader"/>
 
-    <div class="alert" v-if="mailSent && !mailSending"
-         :class="{danger : !mailSuccess}"
-    >
-      <p v-if="mailSuccess">
+    <div class="alert" v-bind:class="{ 'danger' : !mailSuccess}"
+         v-if="!mailSending && Object.keys(mailErrors).length !== 0">
+      <div v-if="!mailSuccess">
+        <div v-if="mailErrors.errors && Object.keys(mailErrors.errors).length !== 0">
+          <div v-for="(v, k) in mailErrors.errors" v-bind:key="k">
+            <p v-for="error in v" v-bind:key="error">
+              {{ error }}
+            </p>
+          </div>
+        </div>
+        <div v-else>
+          {{ getTranslation('views.contact.messages.error') }}
+        </div>
+      </div>
+      <div v-else>
         {{ getTranslation('views.contact.messages.success') }}
-      </p>
-
-      <p v-else-if="Object.keys(mailErrors).length !== 0">
-        {{ mailErrors.message }}
-      </p>
-
-      <p v-else>
-        {{ getTranslation('views.contact.messages.error') }}
-      </p>
+      </div>
     </div>
 
     <form @submit.prevent="sendEmail">
@@ -29,6 +32,7 @@
                id="name"
                required
                type="text"
+               v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.name}"
         >
       </div>
 
@@ -38,6 +42,8 @@
                v-model="formValues.email"
                id="email"
                type="email"
+               required
+               v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.email}"
         >
       </div>
 
@@ -49,6 +55,7 @@
                   id="message"
                   required
                   rows="5"
+                  v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.message}"
         />
       </div>
 
@@ -65,6 +72,8 @@
 import {mapGetters} from 'vuex'
 import BeatLoader from 'vue-spinner/src/BeatLoader'
 import {CONTACT_MAIL_SEND} from "@/store/actions.type";
+import {MailForm} from "@/store/contact.module";
+import {CONTACT_MAIL_RESET} from "@/store/mutations.type";
 
 export default {
   name: 'ContactForm',
@@ -74,11 +83,7 @@ export default {
   },
 
   data: () => ({
-    formValues: {
-      name: '',
-      email: '',
-      message: '',
-    },
+    formValues: MailForm
   }),
 
   computed: {
@@ -95,6 +100,13 @@ export default {
     sendEmail() {
       this.$store.dispatch(CONTACT_MAIL_SEND, this.formValues)
     },
+
+    exitPage() {
+      this.formValues.name = ''
+      this.formValues.email = ''
+      this.formValues.message = ''
+      this.$store.commit(CONTACT_MAIL_RESET)
+    }
   },
 
 }

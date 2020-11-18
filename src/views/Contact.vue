@@ -23,7 +23,7 @@
 
       <hr class="separator"/>
 
-      <contact-form/>
+      <contact-form ref="contactFormComponent"/>
 
     </div>
   </div>
@@ -54,7 +54,14 @@ export default {
       this.frameLoading = false;
     }
 
+  },
+
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteLeave(to, from, next) {
+    this.$refs.contactFormComponent.exitPage();
+    next(true)
   }
+
 }
 </script>
 

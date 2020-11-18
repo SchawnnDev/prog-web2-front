@@ -26,11 +26,10 @@ export default {
             // eslint-disable-next-line no-unused-vars
             handler(val) {
               clearTimeout(this.timer);
-              this.displayedMessage = val.message;
-              console.log(this.displayedMessage)
+              this.message = val.message;
 
               this.timer = setTimeout(() => {
-                val.message = '';
+                this.msg.message = '';
               }, this.timeout);
 
             },

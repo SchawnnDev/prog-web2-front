@@ -52,7 +52,12 @@
         "messages": {
           "success": "Your message was successfully sent to us.",
           "error": "Your message could not be sent to us.",
-          "missing-args": "Please fill in all required fields."
+          "missing-args": "Please fill in all required fields.",
+          "validation": {
+            "name": "Please enter a name between 2 and 64 characters.",
+            "email": "Please enter a valid email.",
+            "message": "Please enter a message between 8 and 2056 characters."
+          }
         }
       },
       "admin": {
@@ -128,7 +133,12 @@
         "messages": {
           "success": "Votre message nous a été envoyé avec succès.",
           "error": "Votre message n'a pas pu nous être envoyé.",
-          "missing-args": "Veuillez remplir tous les champs obligatoires."
+          "missing-args": "Veuillez remplir tous les champs obligatoires.",
+          "validation": {
+            "name": "Veuillez entrer un nom entre 2 et 64 caractères.",
+            "email": "Veuillez entrer un email valide.",
+            "message": "Veuillez entrer un message entre 8 et 2056 caractères."
+          }
         }
       },
       "admin": {
@@ -204,7 +214,12 @@
         "messages": {
           "success": "Ihre Nachricht wurde erfolgreich an uns gesendet.",
           "error": "Ihre Nachricht konnte nicht an uns gesendet werden.",
-          "missing-args": "Bitte füllen Sie alle Pflichtfelder aus."
+          "missing-args": "Bitte füllen Sie alle Pflichtfelder aus.",
+          "validation": {
+            "name": "Bitte geben Sie einen Namen zwischen 2 und 64 Zeichen ein.",
+            "email": "Bitte geben Sie eine gültige E-Mail ein.",
+            "message": "Bitte geben Sie eine Nachricht zwischen 8 und 2056 Zeichen ein."
+          }
         }
       },
       "admin": {

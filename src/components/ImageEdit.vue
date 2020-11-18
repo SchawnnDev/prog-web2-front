@@ -5,15 +5,17 @@
       <div class="content">
         <span class="close" @click="closeBox()">&times;</span>
 
-        <div class="alert" v-bind:class="{ 'danger' : !imagesBoxSuccess}"
-             v-if="!imagesBoxSubmitting && Object.keys(imagesBoxErrors).length !== 0">
-          <div v-for="(v, k) in imagesBoxErrors.errors"
-               v-bind:key="k">
-            <p v-for="error in v" v-bind:key="error">
-              {{ error }}
-            </p>
+        <transition name="fade">
+          <div class="alert" v-bind:class="{ 'danger' : !imagesBoxSuccess}"
+               v-if="!imagesBoxSubmitting && Object.keys(imagesBoxErrors).length !== 0">
+            <div v-for="(v, k) in imagesBoxErrors.errors"
+                 v-bind:key="k">
+              <p v-for="error in v" v-bind:key="error">
+                {{ error }}
+              </p>
+            </div>
           </div>
-        </div>
+        </transition>
 
         <h3>{{ getTranslation(titleName()) }}</h3>
 

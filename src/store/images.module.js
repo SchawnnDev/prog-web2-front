@@ -4,7 +4,7 @@ import {_axios} from "@/plugins/axios";
 import {
     IMAGES_BOX_SEND_END,
     IMAGES_BOX_SEND_START,
-    IMAGES_CLOSE_EDIT_BOX,
+    IMAGES_CLOSE_EDIT_BOX, IMAGES_CLOSE_MESSAGE,
     IMAGES_OPEN_EDIT_BOX
 } from "@/store/mutations.type";
 
@@ -26,7 +26,8 @@ const Image = {
     id: "",
     title: "",
     description: "",
-    url: ""
+    url: "",
+    image: Object
 }
 
 const mutations = {
@@ -37,14 +38,12 @@ const mutations = {
         state.boxSubmitSuccess = false;
     },
 
-    // eslint-disable-next-line no-unused-vars
     [IMAGES_BOX_SEND_END](state, {success, data, message}) {
         state.boxSubmitting = false;
         state.boxSubmitSuccess = success;
         state.boxSubmitErrors = !success ? data : {};
 
-        if(!success)
-            return;
+        if(!success) return;
 
         state.message = message;
         state.success = true;
@@ -62,6 +61,10 @@ const mutations = {
         state.boxImage = {};
         state.boxSubmitSuccess = false;
         state.boxSubmitErrors = {};
+    },
+
+    [IMAGES_CLOSE_MESSAGE](state) {
+        state.message = "";
     },
 
     [IMAGES_LOAD_START](state) {
@@ -124,13 +127,13 @@ const actions = {
             .then(() => {
                 commit(IMAGES_SET_DISPLAY_STATUS, {
                     success: true,
-                    message: rootGetters.getTranslation("views.images.messages.delete-success")
+                    message: rootGetters.getTranslation('views.images.messages.delete-success')
                 })
             })
             .catch(() => {
                 commit(IMAGES_SET_DISPLAY_STATUS, {
                     success: false,
-                    message: rootGetters.getTranslation("views.images.messages.delete-failed")
+                    message: rootGetters.getTranslation('views.images.messages.delete-failed')
                 })
             });
     },

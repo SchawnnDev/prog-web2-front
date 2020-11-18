@@ -6,8 +6,13 @@
 
     <div class="panel">
 
-      <flash-message :message="imagesMessage" :displayed="!(imagesMessage === null || imagesLoading)"
-                     :type="imagesSuccess"></flash-message>
+      <transition name="fade">
+        <div class="alert" v-bind:class="{'danger' : !imagesSuccess }"
+             v-if="imagesMessage !== '' && !(imagesMessage === null || imagesLoading)">
+          {{ imagesMessage }}
+          <span class="close" @click="removeMessage">&times;</span>
+        </div>
+      </transition>
 
       <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
 
@@ -50,16 +55,14 @@
 import {mapGetters} from "vuex";
 import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
-import FlashMessage from "@/components/FlashMessage";
 import ImageEdit from "@/components/ImageEdit";
-import {IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
+import {IMAGES_CLOSE_MESSAGE, IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
 
 export default {
   name: "Manage",
   components: {
     ImageEdit,
     BeatLoader,
-    FlashMessage
   },
   computed: {
     ...mapGetters(["getTranslation", "getImages", "imagesLoading", "imagesMessage", "imagesSuccess"]),
@@ -77,6 +80,10 @@ export default {
 
     displayBox(img) {
       this.$store.commit(IMAGES_OPEN_EDIT_BOX, img);
+    },
+
+    removeMessage() {
+      this.$store.commit(IMAGES_CLOSE_MESSAGE);
     }
 
   }
