@@ -2,6 +2,7 @@ build site:
   image: node:latest
   stage: build
   script:
+    - rm -rf nodes_modules/
     - npm install --progress=false
     - npm run build
   artifacts:
