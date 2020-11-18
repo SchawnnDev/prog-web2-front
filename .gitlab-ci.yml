@@ -2,9 +2,7 @@ build site:
   image: node:latest
   stage: build
   script:
-    - npm cache clean -f
-    - npm install -g n
-    - npm install --progress=false
+    - npm install --progress=false --force
     - npm run build
   artifacts:
     expire_in: 1 week
