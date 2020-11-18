@@ -13,20 +13,20 @@ const state = {
     loading: true,
     page: 1,
     success: false,
-    message: "",
+    message: '',
 
     boxDisplayed: false,
     boxImage: Image,
     boxSubmitting: false,
-    boxSubmitErrors: "",
+    boxSubmitErrors: '',
     boxSubmitSuccess: false,
 }
 
 const Image = {
-    id: "",
-    title: "",
-    description: "",
-    url: "",
+    id: '',
+    title: '',
+    description: '',
+    url: '',
     image: Object
 }
 
@@ -64,7 +64,7 @@ const mutations = {
     },
 
     [IMAGES_CLOSE_MESSAGE](state) {
-        state.message = "";
+        state.message = '';
     },
 
     [IMAGES_LOAD_START](state) {
