@@ -56,7 +56,7 @@
           "validation": {
             "name": "Please enter a name between 2 and 64 characters.",
             "email": "Please enter a valid email.",
-            "message": "Please enter a message between 8 and 2056 characters."
+            "message": "Please enter a message between 8 and 2048 characters."
           }
         }
       },
@@ -70,7 +70,11 @@
           "messages": {
             "create-success" : "You successfully added a new image.",
             "update-success" : "You successfully updated the image.",
-            "delete-image": "Are you sure you want to delete this image?"
+            "delete-image": "Are you sure you want to delete this image?",
+            "validation": {
+              "title": "Please enter a title between 2 and 64 characters.",
+              "description": "Please enter a description between 8 and 1024 characters."
+            }
           },
           "buttons": {
             "add": "Add a new image",
@@ -151,7 +155,11 @@
           "messages": {
             "create-success" : "Vous avez ajouté une nouvelle image avec succès",
             "update-success" : "Vous avez bien mis à jour l'image",
-            "delete-image": "Etes vous sûr de vouloir supprimer cette image ?"
+            "delete-image": "Etes vous sûr de vouloir supprimer cette image ?",
+            "validation": {
+              "name": "Veuillez entrer un titre entre 2 et 64 caractères.",
+              "description": "Veuillez entrer une description entre 2 et 64 caractères."
+            }
           },
           "buttons": {
             "add": "Ajouter une nouvelle image",
@@ -232,7 +240,11 @@
           "messages": {
             "create-success" : "Sie haben erfolgreich ein neues Bild hinzugefügt",
             "update-success" : "Sie haben das Bild erfolgreich aktualisiert.",
-            "delete-image": "Sind Sie sicher, dass Sie dieses Bild löschen möchten?"
+            "delete-image": "Sind Sie sicher, dass Sie dieses Bild löschen möchten?",
+            "validation": {
+              "name": "Bitte geben Sie einen Titel zwischen 2 und 64 Zeichen ein.",
+              "message": "Bitte geben Sie eine Bescheibung zwischen 8 und 2056 Zeichen ein."
+            }
           },
           "buttons": {
             "add": "Ein neues Bild hinzufügen",

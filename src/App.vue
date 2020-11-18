@@ -108,6 +108,18 @@
   background-color: #f8d7da;
 }
 
+.alert.danger .close {
+  color: #721c24;
+}
+
+.alert .close {
+  color: #155724;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .title-container {
   width: 100%;
   min-height: 200px;
@@ -195,7 +207,7 @@ hr.separator {
 
 }
 
-/* VueJS leave */
+/* VueJS v-if leave */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.8s;
 }

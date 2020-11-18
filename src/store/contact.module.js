@@ -52,7 +52,6 @@ const mutations = {
 
 }
 
-
 const actions = {
     [CONTACT_MAIL_SEND]: ({commit, rootGetters}, mail) => {
         commit(CONTACT_MAIL_SEND_START)
@@ -67,7 +66,7 @@ const actions = {
         if (!emailSimpleRegex.test(mail.email))
             errors.push({message: rootGetters.getTranslation('views.contact.messages.validation.email')});
 
-        if (mail.message.length < 8 || mail.message.length > 2056)
+        if (mail.message.length < 8 || mail.message.length > 2048)
             errors.push({message: rootGetters.getTranslation('views.contact.messages.validation.message')});
 
         if (errors.length !== 0) {

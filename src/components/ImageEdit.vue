@@ -44,12 +44,23 @@
 
           <div class="input-group">
             <label for="file">{{ getTranslation('views.images.form.image') }}</label>
-            <input :disabled="imagesBoxSubmitting" id="file" type="file"/>
+            <input :disabled="imagesBoxSubmitting"
+                   id="file"
+                   type="file"
+                   @change="onFileChange"
+                   v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.image}"/>
           </div>
 
-          <button :disabled="imagesBoxSubmitting" class="submit-button button-sm">
-            {{ getTranslation(buttonName()) }}
-          </button>
+          <div class="footer">
+            <button :disabled="imagesBoxSubmitting" class="submit-button button-sm">
+              {{ getTranslation(buttonName()) }}
+            </button>
+
+            <transition name="fade">
+              <beat-loader :loading="imagesBoxSubmitting" :color="'orange'" style="margin-left: 10px"/>
+            </transition>
+          </div>
+
         </form>
 
       </div>
@@ -62,9 +73,13 @@
 import {mapGetters} from "vuex";
 import {IMAGES_CLOSE_EDIT_BOX} from "@/store/mutations.type";
 import {IMAGES_SEND} from "@/store/actions.type";
+import BeatLoader from "vue-spinner/src/BeatLoader"
 
 export default {
   name: "ImageEdit",
+  components: {
+    BeatLoader
+  },
   computed: {
     ...mapGetters(["getTranslation", "imagesBoxItem", "imagesBoxDisplayed", "imagesBoxSubmitting", "imagesBoxSuccess", "imagesBoxErrors"])
   },
@@ -89,6 +104,13 @@ export default {
     titleName() {
       let name = "views.admin.manage.box-title.";
       return !this.isCreated() ? name + "create" : name + "update";
+    },
+
+    onFileChange(e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.imagesBoxItem.file = files[0];
     }
 
   },
@@ -174,6 +196,11 @@ export default {
   margin: 5px 5px 20px;
   text-align: center;
   text-decoration: underline;
+}
+
+.box .footer {
+  display: flex;
+  align-items: center;
 }
 
 .close {

@@ -1,4 +1,8 @@
-import {IMAGES_LOAD_END, IMAGES_LOAD_START, IMAGES_SET_DISPLAY_STATUS} from "./mutations.type";
+import {
+    IMAGES_LOAD_END,
+    IMAGES_LOAD_START,
+    IMAGES_SET_DISPLAY_STATUS
+} from "./mutations.type";
 import {IMAGES_DELETE, IMAGES_LOAD, IMAGES_SEND} from "./actions.type";
 import {_axios} from "@/plugins/axios";
 import {
@@ -16,18 +20,18 @@ const state = {
     message: '',
 
     boxDisplayed: false,
-    boxImage: Image,
+    boxImage: ImageForm,
     boxSubmitting: false,
     boxSubmitErrors: '',
     boxSubmitSuccess: false,
 }
 
-const Image = {
+export const ImageForm = {
     id: '',
     title: '',
     description: '',
     url: '',
-    image: Object
+    file: Image
 }
 
 const mutations = {
@@ -43,12 +47,13 @@ const mutations = {
         state.boxSubmitSuccess = success;
         state.boxSubmitErrors = !success ? data : {};
 
-        if(!success) return;
+        if (!success) return;
 
         state.message = message;
         state.success = true;
         state.boxImage = {};
         state.boxDisplayed = false;
+        state.images.splice(0, 0, data.data.data)
     },
 
     [IMAGES_OPEN_EDIT_BOX](state, image) {
@@ -96,7 +101,7 @@ const mutations = {
          * Si l'on récupère N images, alors on peut changer de page.
          */
 
-        if (data.data.length == data.per_page)
+        if (data.data.length === data.per_page)
             state.page++;
 
         state.loading = false;
@@ -112,13 +117,40 @@ const mutations = {
 
 const actions = {
     [IMAGES_SEND]: ({commit, state, rootGetters}, created) => {
-        let query = !created ? _axios.post('api/images', state.boxImage) : _axios.put('api/images/' + state.boxImage.id, state.boxImage);
+        commit(IMAGES_BOX_SEND_START)
+
+        let errors = []
+        // Si non valide, il y'a toujours encore une validation au niveau du backend.
+
+        if (state.boxImage.title.length < 2 || state.boxImage.title.length > 64)
+            errors.push({message: rootGetters.getTranslation('views.admin.manage.messages.validation.title')});
+
+        if (state.boxImage.description.length < 4 || state.boxImage.description.length > 1024)
+            errors.push({message: rootGetters.getTranslation('views.admin.manage.messages.validation.description')});
+
+        if (errors.length !== 0) {
+            commit(IMAGES_BOX_SEND_END, {data: {errors: errors}, success: false, message: ""});
+            return false;
+        }
+
+        let formData = new FormData();
+        formData.append('image', state.boxImage.file)
+        formData.append('title', state.boxImage.title)
+        formData.append('description', state.boxImage.description)
+
+        let query = !created ? _axios.post('api/images', formData) : _axios.put('api/images/' + state.boxImage.id, formData);
         let translation = 'views.admin.manage.messages.' + (created ? 'update-success' : 'create-success');
 
         return query.then(data => {
             commit(IMAGES_BOX_SEND_END, {data: data, success: true, message: rootGetters.getTranslation(translation)});
-        }).catch(({response}) => {
-            commit(IMAGES_BOX_SEND_END, {data: response.data, success: false, message: ""});
+        }).catch((error) => {
+            let errorMessage = error.message ? error.message.toString() : "Unknown error occured.";
+
+            commit(IMAGES_BOX_SEND_END, {
+                data: error.response ? error.response.data : {errors: [{image: errorMessage}]},
+                success: false,
+                message: ""
+            });
         });
 
     },

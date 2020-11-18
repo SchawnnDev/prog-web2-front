@@ -34,7 +34,7 @@
           <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
           <td>
             <div class="btn-group">
-              <button @click="displayBox(img)" class="submit-button button-sm">
+              <button @click="displayBox(cloneImage(img))" class="submit-button button-sm">
                 {{ getTranslation('views.images.buttons.edit') }}
               </button>
               <button @click="deleteImage(img.id)" class="submit-button button-sm">
@@ -84,8 +84,17 @@ export default {
 
     removeMessage() {
       this.$store.commit(IMAGES_CLOSE_MESSAGE);
-    }
+    },
 
+    cloneImage(img) {
+      // on clone
+      return {
+        id: img.id,
+        title: img.title,
+        description: img.description,
+        url: img.url
+      }
+    },
   }
 }
 </script>
@@ -109,5 +118,4 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
-
 </style>
