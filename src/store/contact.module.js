@@ -1,6 +1,4 @@
-import {
-    CONTACT_SET_DISPLAY_STATUS, CONTACT_MAIL_SEND_START, CONTACT_MAIL_SEND_END
-} from "./mutations.type";
+import {CONTACT_MAIL_SEND_END, CONTACT_MAIL_SEND_START, CONTACT_SET_DISPLAY_STATUS} from "./mutations.type";
 import {_axios} from "@/plugins/axios";
 import {CONTACT_MAIL_SEND} from "@/store/actions.type";
 import {CONTACT_MAIL_RESET} from "@/store/mutations.type";

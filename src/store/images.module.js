@@ -1,14 +1,12 @@
-import {
-    IMAGES_LOAD_END,
-    IMAGES_LOAD_START,
-    IMAGES_SET_DISPLAY_STATUS
-} from "./mutations.type";
+import {IMAGES_LOAD_END, IMAGES_LOAD_START, IMAGES_SET_DISPLAY_STATUS} from "./mutations.type";
 import {IMAGES_DELETE, IMAGES_LOAD, IMAGES_SEND} from "./actions.type";
 import {_axios} from "@/plugins/axios";
 import {
     IMAGES_BOX_SEND_END,
     IMAGES_BOX_SEND_START,
-    IMAGES_CLOSE_EDIT_BOX, IMAGES_CLOSE_MESSAGE,
+    IMAGES_CLEAR,
+    IMAGES_CLOSE_EDIT_BOX,
+    IMAGES_CLOSE_MESSAGE,
     IMAGES_OPEN_EDIT_BOX
 } from "@/store/mutations.type";
 
@@ -18,6 +16,12 @@ const state = {
     page: 1,
     success: false,
     message: '',
+    pagination: {
+        prev: null,
+        next: null,
+        current: 0,
+        total: 0
+    },
 
     boxDisplayed: false,
     boxImage: ImageForm,
@@ -35,6 +39,10 @@ export const ImageForm = {
 }
 
 const mutations = {
+
+    [IMAGES_CLEAR](state) {
+        state.images = []
+    },
 
     [IMAGES_BOX_SEND_START](state) {
         state.boxSubmitting = true;
@@ -56,15 +64,14 @@ const mutations = {
 
         const image = data.data.data;
 
-        if(!created)
-        {
+        if (!created) {
             state.images.splice(0, 0, image)
             return;
         }
 
         const found = state.images.find(value => value.id === image.id);
 
-        if(!found) return;
+        if (!found) return;
 
         found.title = image.title;
         found.description = image.description;
@@ -95,7 +102,9 @@ const mutations = {
         /**
          * S'il y'a encore des données dans la page, on compare et on récupère
          */
-        for (let img of data.data) {
+        const images = data.data.data;
+
+        for (let img of images) {
 
             let found = false;
 
@@ -105,8 +114,7 @@ const mutations = {
                 break;
             }
 
-            if (found)
-                continue;
+            if (found) continue;
 
             state.images.push(img);
 
@@ -116,8 +124,12 @@ const mutations = {
          * Si l'on récupère N images, alors on peut changer de page.
          */
 
-        if (data.data.length === data.per_page)
-            state.page++;
+        if (images.length === data.per_page) state.page++;
+
+        state.pagination.next = data.data.links.next;
+        state.pagination.prev = data.data.links.prev;
+        state.pagination.current = data.data.meta.current_page;
+        state.pagination.total = data.data.meta.last_page;
 
         state.loading = false;
     },
@@ -131,6 +143,7 @@ const mutations = {
 }
 
 const actions = {
+
     [IMAGES_SEND]: ({commit, state, rootGetters}, created) => {
         commit(IMAGES_BOX_SEND_START)
 
@@ -150,7 +163,7 @@ const actions = {
 
         let formData = new FormData();
 
-        if(state.boxImage.file) formData.append('image', state.boxImage.file)
+        if (state.boxImage.file) formData.append('image', state.boxImage.file)
         formData.append('title', state.boxImage.title)
         formData.append('description', state.boxImage.description)
 
@@ -176,6 +189,7 @@ const actions = {
         });
 
     },
+
     [IMAGES_DELETE]: ({commit, rootGetters}, params) => {
         return _axios.delete('api/images/' + params.id)
             .then(() => {
@@ -191,15 +205,27 @@ const actions = {
                 })
             });
     },
+
     [IMAGES_LOAD]: ({commit, state}, params) => {
         commit(IMAGES_LOAD_START);
-        // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées
-        // on charge alors toutes les données.
-        params['per_page'] = params.per_page * state.page;
+        const pagination = 'pagination' in params
+        // si clear existe, on clear
+
+        if (!pagination) {
+            // Dans notre cas on a un problème : s'il y'a des nouvelles images, alors elle ne seront pas chargées
+            // on charge alors toutes les données.
+            params['per_page'] = params.per_page * state.page;
+        }
+
         // on charge les images du back
         return _axios.get('api/images', {params: params})
             .then(({data}) => {
-                setTimeout(() => commit(IMAGES_LOAD_END, {data: data.data, per_page: params.per_page}), 500)
+
+                setTimeout(() => {
+                    if (pagination) commit(IMAGES_CLEAR)
+                    commit(IMAGES_LOAD_END, {data: data, per_page: params.per_page})
+                }, 200) // petit effet de chargement
+
             })
             .catch(error => {
                 throw new Error(error);
@@ -217,7 +243,8 @@ const getters = {
     imagesBoxDisplayed: state => state.boxDisplayed,
     imagesBoxSubmitting: state => state.boxSubmitting,
     imagesBoxSuccess: state => state.boxSubmitSuccess,
-    imagesBoxErrors: state => state.boxSubmitErrors
+    imagesBoxErrors: state => state.boxSubmitErrors,
+    imagesPagination: state => state.pagination
 }
 
 export default {

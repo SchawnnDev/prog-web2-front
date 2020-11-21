@@ -74,7 +74,7 @@
   cursor: default;
 }
 
-.submit-button:hover {
+.submit-button:hover:enabled {
   background: orangered;
   transition: background-color 0.2s ease-out;
   -webkit-transition: background-color 0.2s ease-out;
@@ -211,7 +211,9 @@ hr.separator {
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.8s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
   opacity: 0;
 }
 

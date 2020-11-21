@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title-container title-responsive">
-      <h1>{{getTranslation("views.images.title")}}</h1>
+      <h1>{{ getTranslation("views.images.title") }}</h1>
     </div>
 
     <images-container :per-page="2"></images-container>

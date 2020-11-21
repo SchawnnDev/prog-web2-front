@@ -31,7 +31,7 @@
       <div class="founders">
 
         <div class="founder">
-          <img class="founder-img" alt="Paul" src="../assets/img/team/paul.jpg"/>
+          <img alt="Paul" class="founder-img" src="../assets/img/team/paul.jpg"/>
           <div class="founder-details">
             <h2>Paul</h2>
             <p>{{ getTranslation('views.home.founders.president') }}</p>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="founder">
-          <img class="founder-img" alt="Louis" src="../assets/img/team/louis.jpg"/>
+          <img alt="Louis" class="founder-img" src="../assets/img/team/louis.jpg"/>
           <div class="founder-details">
             <h2>Louis</h2>
             <p>{{ getTranslation('views.home.founders.secretary') }}</p>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="founder">
-          <img class="founder-img" alt="Matthieu" src="../assets/img/team/matthieu.jpg"/>
+          <img alt="Matthieu" class="founder-img" src="../assets/img/team/matthieu.jpg"/>
           <div class="founder-details">
             <h2>Matthieu</h2>
             <p>{{ getTranslation('views.home.founders.treasurer') }}</p>
@@ -116,6 +116,7 @@ export default {
   .founders .founder .founder-details h2 {
     font-size: 16px;
   }
+
   .founders {
     margin-top: 0;
   }

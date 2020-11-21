@@ -3,7 +3,7 @@
     <p>2020 - AEMFS</p>
 
     <select id="lang-selector" class="select-lang" @change="changeLanguage($event)">
-      <option v-bind:key="lang" v-for="lang in getLanguages" :value="lang" :selected="lang === getLanguageCode">
+      <option v-for="lang in getLanguages" v-bind:key="lang" :selected="lang === getLanguageCode" :value="lang">
         {{ getTranslationByCode("name", null, lang) }}
       </option>
     </select>

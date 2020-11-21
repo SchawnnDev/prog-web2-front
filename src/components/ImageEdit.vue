@@ -6,8 +6,8 @@
         <span class="close" @click="closeBox()">&times;</span>
 
         <transition name="fade">
-          <div class="alert" v-bind:class="{ 'danger' : !imagesBoxSuccess}"
-               v-if="!imagesBoxSubmitting && Object.keys(imagesBoxErrors).length !== 0">
+          <div v-if="!imagesBoxSubmitting && Object.keys(imagesBoxErrors).length !== 0" class="alert"
+               v-bind:class="{ 'danger' : !imagesBoxSuccess}">
             <div v-for="(v, k) in imagesBoxErrors.errors"
                  v-bind:key="k">
               <p v-for="error in v" v-bind:key="error">
@@ -23,20 +23,20 @@
 
           <div class="input-group">
             <label for="title">{{ getTranslation('views.images.form.title') }}</label>
-            <input :disabled="imagesBoxSubmitting"
+            <input id="title"
                    v-model="imagesBoxItem.title"
-                   type="text"
+                   :disabled="imagesBoxSubmitting"
                    required
-                   id="title"
+                   type="text"
                    v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.title}">
           </div>
 
           <div class="input-group">
             <label for="description">{{ getTranslation('views.images.form.description') }}</label>
-            <textarea :disabled="imagesBoxSubmitting"
+            <textarea id="description"
                       v-model="imagesBoxItem.description"
+                      :disabled="imagesBoxSubmitting"
                       cols="30"
-                      id="description"
                       required
                       rows="5"
                       v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.description}"/>
@@ -44,11 +44,11 @@
 
           <div class="input-group">
             <label for="file">{{ getTranslation('views.images.form.image') }}</label>
-            <input :disabled="imagesBoxSubmitting"
-                   id="file"
+            <input id="file"
+                   :disabled="imagesBoxSubmitting"
                    type="file"
-                   @change="onFileChange"
-                   v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.image}"/>
+                   v-bind:class="{'error' : imagesBoxErrors && imagesBoxErrors.errors && imagesBoxErrors.errors.image}"
+                   @change="onFileChange"/>
           </div>
 
           <div class="footer">
@@ -57,7 +57,7 @@
             </button>
 
             <transition name="fade">
-              <beat-loader :loading="imagesBoxSubmitting" :color="'orange'" style="margin-left: 10px"/>
+              <beat-loader :color="'orange'" :loading="imagesBoxSubmitting" style="margin-left: 10px"/>
             </transition>
           </div>
 

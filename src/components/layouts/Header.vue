@@ -6,16 +6,16 @@
       </router-link>
       <ul class="nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">{{getTranslation("header.nav.pages.home")}}</router-link>
+          <router-link class="nav-link" to="/">{{ getTranslation("header.nav.pages.home") }}</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/images">{{getTranslation("header.nav.pages.images")}}</router-link>
+          <router-link class="nav-link" to="/images">{{ getTranslation("header.nav.pages.images") }}</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/contact">{{getTranslation("header.nav.pages.contact")}}</router-link>
+          <router-link class="nav-link" to="/contact">{{ getTranslation("header.nav.pages.contact") }}</router-link>
         </li>
       </ul>
-      <div class="mobile-menu-toggle" id="mobile-menu" v-on:click="switchMenu">
+      <div id="mobile-menu" class="mobile-menu-toggle" v-on:click="switchMenu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>

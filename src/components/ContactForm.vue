@@ -2,10 +2,10 @@
 
   <div class="input-form">
 
-    <beat-loader :loading="mailSending" :color="'orange'" class="loader"/>
+    <beat-loader :color="'orange'" :loading="mailSending" class="loader"/>
 
-    <div class="alert" v-bind:class="{ 'danger' : !mailSuccess}"
-         v-if="!mailSending && Object.keys(mailErrors).length !== 0">
+    <div v-if="!mailSending && Object.keys(mailErrors).length !== 0" class="alert"
+         v-bind:class="{ 'danger' : !mailSuccess}">
       <div v-if="!mailSuccess">
         <div v-if="mailErrors.errors && Object.keys(mailErrors.errors).length !== 0">
           <div v-for="(v, k) in mailErrors.errors" v-bind:key="k">
@@ -27,9 +27,9 @@
 
       <div class="input-group">
         <label for="name">{{ getTranslation('views.contact.form.names') }}</label>
-        <input :disabled="mailSending"
+        <input id="name"
                v-model="formValues.name"
-               id="name"
+               :disabled="mailSending"
                required
                type="text"
                v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.name}"
@@ -38,21 +38,21 @@
 
       <div class="input-group">
         <label for="email">{{ getTranslation('views.contact.form.email') }}</label>
-        <input :disabled="mailSending"
+        <input id="email"
                v-model="formValues.email"
-               id="email"
-               type="email"
+               :disabled="mailSending"
                required
+               type="email"
                v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.email}"
         >
       </div>
 
       <div class="input-group">
         <label for="message">{{ getTranslation('views.contact.form.message') }}</label>
-        <textarea :disabled="mailSending"
+        <textarea id="message"
                   v-model="formValues.message"
+                  :disabled="mailSending"
                   cols="30"
-                  id="message"
                   required
                   rows="5"
                   v-bind:class="{'error' : mailErrors && mailErrors.errors && mailErrors.errors.message}"

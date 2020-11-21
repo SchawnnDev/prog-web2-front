@@ -1,7 +1,4 @@
-import {
-    LANG_CHANGE,
-    LANG_INIT
-} from "@/store/mutations.type"
+import {LANG_CHANGE, LANG_INIT} from "@/store/mutations.type"
 import {I18N_INIT} from "@/store/actions.type";
 
 const state = {
@@ -18,7 +15,7 @@ const mutations = {
 
         let language = localStorage.language;
 
-        if(!language)
+        if (!language)
             language = navigator.language || 'en';
 
         state.code = Object.keys(json).includes(language) ? language : 'en'; // langue de base: anglais
@@ -31,7 +28,7 @@ const mutations = {
     [LANG_CHANGE](state, code = state.languages[0]) {
 
         // La langue n'existe pas
-        if(!state.languages.includes(code))
+        if (!state.languages.includes(code))
             return;
 
         state.code = code;
@@ -56,7 +53,7 @@ const getters = {
     },
 
     getLanguageCode: state => {
-      return state.code;
+        return state.code;
     },
 
     getTranslationByCode: state => (key, variables, code) => {

@@ -7,18 +7,20 @@
     <div class="panel">
 
       <transition name="fade">
-        <div class="alert" v-bind:class="{'danger' : !imagesSuccess }"
-             v-if="imagesMessage !== '' && !(imagesMessage === null || imagesLoading)">
+        <div v-if="imagesMessage !== '' && !(imagesMessage === null || imagesLoading)" class="alert"
+             v-bind:class="{'danger' : !imagesSuccess }">
           {{ imagesMessage }}
           <span class="close" @click="removeMessage">&times;</span>
         </div>
       </transition>
 
-      <beat-loader :loading="imagesLoading" :color="'orange'"></beat-loader>
+      <beat-loader :color="'orange'" :loading="imagesLoading"></beat-loader>
 
-      <button @click="displayBox({id: ''})" class="submit-button button-sm">
+      <button class="submit-button button-sm" @click="displayBox({id: ''})">
         {{ getTranslation('views.admin.manage.buttons.add') }}
       </button>
+
+      <pagination/>
 
       <table class="images-list">
         <thead>
@@ -29,15 +31,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-bind:key="img.id" v-for="img in getImages">
+        <tr v-for="img in getImages" v-bind:key="img.id">
           <td>{{ img.title }}</td>
-          <td><img style="height: 128px" v-bind:src="img.url" alt=""/></td>
+          <td><img alt="" style="height: 128px" v-bind:src="img.url"/></td>
           <td>
             <div class="btn-group">
-              <button @click="displayBox(cloneImage(img))" class="submit-button button-sm">
+              <button class="submit-button button-sm" @click="displayBox(cloneImage(img))">
                 {{ getTranslation('views.images.buttons.edit') }}
               </button>
-              <button @click="deleteImage(img.id)" class="submit-button button-sm">
+              <button class="submit-button button-sm" @click="deleteImage(img.id)">
                 {{ getTranslation('views.admin.manage.buttons.delete') }}
               </button>
             </div>
@@ -57,10 +59,12 @@ import {IMAGES_DELETE, IMAGES_LOAD} from "@/store/actions.type";
 import BeatLoader from "vue-spinner/src/BeatLoader"
 import ImageEdit from "@/components/ImageEdit";
 import {IMAGES_CLOSE_MESSAGE, IMAGES_OPEN_EDIT_BOX} from "@/store/mutations.type";
+import Pagination from "@/components/Pagination";
 
 export default {
   name: "Manage",
   components: {
+    Pagination,
     ImageEdit,
     BeatLoader,
   },
@@ -68,7 +72,7 @@ export default {
     ...mapGetters(["getTranslation", "getImages", "imagesLoading", "imagesMessage", "imagesSuccess"]),
   },
   mounted() {
-    this.$store.dispatch(IMAGES_LOAD, {per_page: 15})
+    this.$store.dispatch(IMAGES_LOAD, {per_page: 5})
   },
 
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="alert" v-bind:class="{'danger' : !type }" v-show="message !== '' && displayed">
+    <div v-show="message !== '' && displayed" class="alert" v-bind:class="{'danger' : !type }">
       <component :is="messageComponent" :msg="{message: message}"/>
     </div>
   </transition>
