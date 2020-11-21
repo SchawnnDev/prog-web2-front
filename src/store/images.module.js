@@ -42,7 +42,7 @@ const mutations = {
         state.boxSubmitSuccess = false;
     },
 
-    [IMAGES_BOX_SEND_END](state, {success, data, message}) {
+    [IMAGES_BOX_SEND_END](state, {success, data, created, message}) {
         state.boxSubmitting = false;
         state.boxSubmitSuccess = success;
         state.boxSubmitErrors = !success ? data : {};
@@ -53,7 +53,22 @@ const mutations = {
         state.success = true;
         state.boxImage = {};
         state.boxDisplayed = false;
-        state.images.splice(0, 0, data.data.data)
+
+        const image = data.data.data;
+
+        if(!created)
+        {
+            state.images.splice(0, 0, image)
+            return;
+        }
+
+        const found = state.images.find(value => value.id === image.id);
+
+        if(!found) return;
+
+        found.title = image.title;
+        found.description = image.description;
+        found.url = image.url;
     },
 
     [IMAGES_OPEN_EDIT_BOX](state, image) {
@@ -134,20 +149,27 @@ const actions = {
         }
 
         let formData = new FormData();
-        formData.append('image', state.boxImage.file)
+
+        if(state.boxImage.file) formData.append('image', state.boxImage.file)
         formData.append('title', state.boxImage.title)
         formData.append('description', state.boxImage.description)
 
-        let query = !created ? _axios.post('api/images', formData) : _axios.put('api/images/' + state.boxImage.id, formData);
+        let query = !created ? _axios.post('api/images', formData) : _axios.post('api/images/' + state.boxImage.id + '?_method=PUT', formData);
         let translation = 'views.admin.manage.messages.' + (created ? 'update-success' : 'create-success');
 
         return query.then(data => {
-            commit(IMAGES_BOX_SEND_END, {data: data, success: true, message: rootGetters.getTranslation(translation)});
+            commit(IMAGES_BOX_SEND_END, {
+                data: data,
+                created: created,
+                success: true,
+                message: rootGetters.getTranslation(translation)
+            });
         }).catch((error) => {
             let errorMessage = error.message ? error.message.toString() : "Unknown error occured.";
 
             commit(IMAGES_BOX_SEND_END, {
                 data: error.response ? error.response.data : {errors: [{image: errorMessage}]},
+                created: created,
                 success: false,
                 message: ""
             });
