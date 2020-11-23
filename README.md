@@ -1,6 +1,8 @@
-# prog-web2-front
+# AEMFS - Prog Web Back Front
 
-## Structure:
+## Idées de base
+
+### Structure:
 
 Multipage avec plusieurs onglets: accueil, photos, contact
 
@@ -12,32 +14,34 @@ Photos: affichage de photos en grille max 2 voir 3 par ligne
 
 Contact: page avec formulaire de contact + email + adresse
 
-Cependant, et si vous le souhaitez, vous pouvez utiliser le lien de mon API qui est en
-prod qui contient un peu plus de données.
+## Mise en prod
+
+Copiez le .env.example à .env et ajoutez-y le lien de votre API.
+
+Si vous le souhaitez, vous pouvez utiliser le lien de mon API qui est en
+production et qui contient déjà des données :
 
 ```
 https://api.l2.schawnndev.fr
 ```
 
-## Project setup
+### Installez les dépendances
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Démarrez le serveur dev
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilez et minifiez pour la production
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Testez votre code avec lint
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
