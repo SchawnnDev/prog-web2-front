@@ -12,6 +12,12 @@ Photos: affichage de photos en grille max 2 voir 3 par ligne
 
 Contact: page avec formulaire de contact + email + adresse
 
+Cependant, et si vous le souhaitez, vous pouvez utiliser le lien de mon API qui est en
+prod qui contient un peu plus de données.
+
+```
+https://api.l2.schawnndev.fr
+```
 
 ## Project setup
 ```

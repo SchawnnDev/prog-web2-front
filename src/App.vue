@@ -176,6 +176,12 @@ hr.separator {
   font-size: 26px;
 }
 
+.sad-smiley {
+  background-image: url('assets/svg/sad_smiley_face.svg');
+  width: 64px;
+  height: 64px;
+}
+
 @media only screen and (max-width: 790px) {
   .title-container.title-responsive h1 {
     font-size: 30px;
@@ -225,11 +231,14 @@ import {I18N_INIT} from "@/store/actions.type";
 
 export default {
   components: {Footer, Header},
+  created() {
+    document.title = 'AEMFS'
+  },
   mounted() {
     Promise.all([
       this.$store.dispatch(I18N_INIT),
     ]).then(() => {
-      console.log("Loaded translations");
+      console.log('Loaded translations');
     })
   }
 }

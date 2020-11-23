@@ -85,10 +85,4 @@ export default {
   padding: 10px;
 }
 
-.error-container .sad-smiley {
-  background-image: url('../assets/svg/sad_smiley_face.svg');
-  width: 64px;
-  height: 64px;
-}
-
 </style>

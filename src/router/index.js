@@ -23,6 +23,11 @@ const routes = [
         path: '/admin/manage',
         name: 'Manage',
         component: () => import('../views/admin/Manage')
+    },
+    {
+        path: "*",
+        name: 'UnknownRoute',
+        component: () => import('../views/errors/UnknownRoute')
     }
 ]
 
