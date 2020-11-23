@@ -107,6 +107,7 @@ export default {
 .images-list {
   border-collapse: collapse;
   width: 100%;
+  overflow-x:auto;
 }
 
 .images-list th, td {
@@ -122,4 +123,49 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  .images-list table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  .images-list thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .images-list tr {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 5px;
+  }
+
+  .images-list td {
+    border: none;
+    border-bottom: 1px solid #aaaaaa;
+    position: relative;
+    padding-left: 40%;
+  }
+
+  .images-list img {
+    overflow: hidden;
+  }
+
+  .images-list td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 20%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .images-list td:nth-of-type(1):before { content: "Titre"; }
+  .images-list td:nth-of-type(2):before { content: "Images"; }
+  .images-list td:nth-of-type(3):before { content: "Actions"; }
+}
+
 </style>
